@@ -5,32 +5,29 @@ using namespace std;
 
 vector<CUnit> unit_list;
 int num_units;
+double flow[2] = { 10, 100 }; //flow for valuable and  waste component
+CUnit circuit_feed, circuit_tails, circuit_conc; //feed, and two bins for tails and concentration
 
 
-void mark_units(int unit_num)
+double Evaluate_Circuit(vector<int> circuit_vector, double tolerance, int max_iterations)
 {
-	if (unit_list[unit_num].mark) //If we have seen this unit already exit
-		return;
-	unit_list[unit_num].mark = true; //Mark that we have now seen the unit
+	for (int i = 0; i < num_units; i++)
+	{
+		CUnit unit(i, circuit_vector[1 + i], circuit_vector[i + 2]);
+		unit_list.insert(unit_list.begin() + i, unit);
 
-	//If conc_num does not point at a circuit outlet recursively call the function
-	if (unit_list[unit_num].conc_num < num_units)
-		mark_units(unit_list[unit_num].conc_num);
+		unit.feed = CStream(flow);
+		unit.output_con_tail(); //THIS RESETS FEED TO ) FOR NOW //Can be changed
+	}
 
-	else
-		//…Potentially do something to indicate that you have seen an exit
-		//If tails_num does not point at a circuit outlet recursively call the function
-		if (unit_list[unit_num].tails_num < num_units)
-			mark_units(unit_list[unit_num].tails_num);
-		else
-			int a = 2;
-			//…Potentially do something to indicate that you have seen an exit
+
+	return 0;
 }
+
 
 int main()
 {
-	double valuable_flow = 10;
-	double waste_flow = 100;
+	
 
 	vector<int> circuit;
 	int myarray[] = { 0, 4, 3, 2, 0, 5, 4, 4, 6, 2, 1 };
@@ -39,16 +36,7 @@ int main()
 	num_units = (circuit.size() - 1) / 2;
 	unit_list.resize(num_units);
 
-	for (int i = 0; i < num_units; i++)
-	{
-		CUnit unit(i, circuit[1 + i], circuit[i + 2]);
-		unit_list.insert(unit_list.begin() + i, unit);
-		unit.input_rate_val = valuable_flow;
-		unit.input_rate_wst = waste_flow;
-
-		unit.output_con_tail();
-
-	}
+	Evaluate_Circuit(circuit, 0.005, 1000);
 
 
 	system("pause");

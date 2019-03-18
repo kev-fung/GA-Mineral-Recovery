@@ -25,11 +25,15 @@ CUnit::~CUnit()
 
 void CUnit::output_con_tail()
 {
-	output_rate_con_val = input_rate_val*.20;
-	output_rate_con_wst = input_rate_wst * 0.05;
-
-	output_rate_tail_val = input_rate_val - output_rate_con_val;
-	output_rate_tail_wst = input_rate_wst - output_rate_con_wst;
+	for (int i = 0; i < 2; i++)
+	{
+		conc.M[i] = feed.M[i];
+		tail.M[i] = feed.M[i] - conc.M[i];
+		feed_old.M[i] = feed.M[i];
+		feed.M[i] = 0;
+	}
 }
 
 class CUnit;
+
+//diff between /total feed
