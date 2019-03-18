@@ -1,22 +1,25 @@
 #include "CStream.h"
 
-
 CStream::CStream()
 {
 }
-
 
 CStream::~CStream()
 {
 }
 
-Cstream Cstream ::operator+(const CStream &other)
+CStream CStream::operator+(const CStream &other)
 {
-    this->flow_rate +=  other.flow_rate;
-    //return newstream;
+    CStream newstream;
+    for (int i=0;i<2;i++)
+        newstream.M[i] = M[i] + other.M[i];
+    return newstream;
 }
 
-CStream CStream::operator-(const CStream &other)
+
+CStream &CStream::operator+=(const CStream &other)
 {
-    this->flow_rate -= other.flow_rate;
+    for (int i=0;i<2;i++)
+        M[i] += other.M[i];
+    return *this;
 }
