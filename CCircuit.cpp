@@ -76,17 +76,23 @@ void mark_units(int unit_num) {
 	// Mark that we have now seen the unit
 
 	//If conc_num does not point at a circuit outlet recursively call the function
+	int counter = 0;
 	if (units[unit_num].conc_num < num_units) {
 		mark_units(units[unit_num].conc_num);
+		counter += 1;
+		if (counter >= 50) { test2 = false; break; }
 	}
 	else {
 		// ...Potentially do something to indicate that you have seen an exit
 		test2 = true;
 	}
 
+	counter = 0;
 	//If tails_num does not point at a circuit outlet recursively call the function
 	if (units[unit_num].tails_num < num_units) {
 		mark_units(units[unit_num].tails_num);
+		counter += 1;
+		if (counter >= 50) { test3 = false; break; }
 	}
 	else {
 		// ...Potentially do something to indicate that you have seen an exit
@@ -96,5 +102,5 @@ void mark_units(int unit_num) {
 	if (test2 = true && test3 = true) { test = true; }
 	else (test = false;)
 
-		return test;
+	return test;
 }
