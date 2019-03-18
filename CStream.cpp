@@ -18,7 +18,5 @@ Cstream Cstream ::operator+(const CStream &other)
 
 CStream CStream::operator-(const CStream &other)
 {
-    CStream newstream;
     this->flow_rate -= other.flow_rate;
-    return newstream;
 }
