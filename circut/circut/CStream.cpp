@@ -25,14 +25,12 @@ CStream CStream::operator+(const CStream &other)
 	return newstream;
 }
 
-
 CStream &CStream::operator+=(const CStream &other)
 {
 	for (int i = 0; i < 2; i++)
-		M[i] += other.M[i];
+		this->M[i] += other.M[i];
 	return *this;
 }
-
 
 CStream CStream::operator*(double frac[2])
 {
@@ -49,6 +47,7 @@ CStream CStream::operator-(const CStream & other)
 		newstream.M[i] = M[i] - other.M[i];
 	return newstream;
 }
+
 
 void CStream::reset_stream()
 {
