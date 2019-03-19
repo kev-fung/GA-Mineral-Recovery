@@ -13,11 +13,11 @@ TEST_BUILD_DIR = $(TEST_DIR)/build
 TEST_BIN_DIR = $(TEST_DIR)/bin
 ALL_TEST_BUILD_DIR = $(TEST_BUILD_DIR) $(TEST_BIN_DIR)
 
-all: Genetic_Algorithm
+all: geneticAlgo
 
-Genetic_Algorithm: $(BIN_DIR)/Genetic_Algorithm
+geneticAlgo: $(BIN_DIR)/geneticAlgo
 
-$(BIN_DIR)/Genetic_Algorithm: $(BUILD_DIR)/Genetic_Algorithm.o $(BUILD_DIR)/CCircuit.o $(BUILD_DIR)/main.o 
+$(BIN_DIR)/geneticAlgo: $(BUILD_DIR)/geneticAlgo.o
 	$(CXX) -o $@ $^
 
 $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.cpp $(INCLUDE_DIR)/*.h | directories
@@ -26,23 +26,18 @@ $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.cpp $(INCLUDE_DIR)/*.h | directories
 clean:
 	rm -f $(BUILD_DIR)/* $(BIN_DIR)/*
 
-.PHONY: Genetic_Algorithm all clean
+.PHONY: geneticAlgo all clean
 
-TESTS = test1 test2
+TESTS = test_genetic
 
 runtests: ${TESTS}
 	@python3 run_tests.py
 
 tests: ${TESTS}
 
-test1: $(TEST_BIN_DIR)/test1
+test_genetic: $(TEST_BIN_DIR)/test_genetic
 
-test2: $(TEST_BIN_DIR)/test2
-
-$(TEST_BIN_DIR)/test1: $(TEST_BUILD_DIR)/test1.o $(BUILD_DIR)/CCircuit.o
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
-
-$(TEST_BIN_DIR)/test2: $(TEST_BUILD_DIR)/test2.o $(BUILD_DIR)/Genetic_Algorithm.o
+$(TEST_BIN_DIR)/test_genetic: $(TEST_BUILD_DIR)/test_genetic.o $(BUILD_DIR)/geneticAlgo.o
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 $(TEST_BUILD_DIR)/%.o: $(TEST_DIR)/%.cpp $(INCLUDE_DIR)/*.h | test_directories
