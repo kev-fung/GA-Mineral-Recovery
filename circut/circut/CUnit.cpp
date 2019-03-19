@@ -51,15 +51,15 @@ void CUnit::store_feed()
 
 double CUnit::rel_tol_calc()
 {
-	//double rel_tol[2];
+	double rel_tol[2];
 
-	//for (int i = 0; i < 2; i++)
-	//{
-	//	rel_tol[i] = abs(this->feed.M[i] - this->feed_old.M[i]) / this->feed_old.M[i];
-	//}
+	for (int i = 0; i < 2; i++)
+	{
+		rel_tol[i] = abs(this->feed.M[i] - this->feed_old.M[i]) / this->feed_old.M[i];
+	}
 
-	//return (rel_tol[0] > rel_tol[1] ? rel_tol[0] : rel_tol[1]);
-	
+	return (rel_tol[0] > rel_tol[1] ? rel_tol[0] : rel_tol[1]);
+	/*
 	double rel_tol;
 
 	double tot_feed;
@@ -70,7 +70,7 @@ double CUnit::rel_tol_calc()
 
 	rel_tol = abs(tot_feed - tot_feed_old) / tot_feed_old;
 
-	return rel_tol;
+	return rel_tol;*/
 }
 
 class CUnit;

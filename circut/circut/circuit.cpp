@@ -118,15 +118,15 @@ double Evaluate_Circuit(vector<int> circuit_vector, double tolerance, int max_it
 		}
 
 		// Work out the relative tolerances!
-		//max_rel_tol = -1e9;
-		//for (int i = 0; i < num_units; i++)
-		//{
-		//	rel_tol = unit_list[i].rel_tol_calc();
-		//	if (rel_tol > max_rel_tol)
-		//	{
-		//		max_rel_tol = rel_tol;
-		//	}
-		//}
+		max_rel_tol = -1e9;
+		for (int i = 0; i < num_units; i++)
+		{
+			rel_tol = unit_list[i].rel_tol_calc();
+			if (rel_tol > max_rel_tol)
+			{
+				max_rel_tol = rel_tol;
+			}
+		}
 		
 		//cout << "Unit 0";
 		//printfeed(unit_list[0].feed);
@@ -139,7 +139,7 @@ double Evaluate_Circuit(vector<int> circuit_vector, double tolerance, int max_it
 
 		//cout << "Conc bin stream: ";
 		//printfeed(unit_list[num_units].feed);
-		//rtol = max_rel_tol;
+		rtol = max_rel_tol;
 		iter++;
 //		system("pause");
 	}
@@ -159,14 +159,14 @@ int main()
 {
 	// Initialise example circuit:
 	vector<int> circuit;
-	int myarray[] = { 0, 4, 3, 2, 0, 5, 4, 4, 6, 2, 1 }; //{6, 16, 7, 7, 13, 11, 12, 15, 5, 3, 6, 0, 2, 14, 12, 1, 12, 14, 11, 5, 16, 11, 9, 4, 1, 0, 8, 5, 10, 2, 6};  //{ 0, 1, 2, 3, 0, 0, 4 }; // // //
+	int myarray[] = { 0, 4, 3, 2, 0, 5, 4, 4, 6, 2, 1 }; //{ 0, 1, 2, 3, 0, 0, 4 }; //{ 0, 4, 3, 2, 0, 5, 4, 4, 6, 2, 1 }; //{6, 16, 7, 7, 13, 11, 12, 15, 5, 3, 6, 0, 2, 14, 12, 1, 12, 14, 11, 5, 16, 11, 9, 4, 1, 0, 8, 5, 10, 2, 6};  //{ 0, 1, 2, 3, 0, 0, 4 }; // // //
 	circuit.insert(circuit.begin(), myarray, myarray + 11); //31 //11 //7
 
 	num_units = (circuit.size() - 1) / 2;	// Number of units
 
 	unit_list = new CUnit[num_units+2];
 
-	double fitness = Evaluate_Circuit(circuit, 1e-6, 8);	
+	double fitness = Evaluate_Circuit(circuit, 1e-6, 1000);	
 
 	cout << "Fitness: " << fitness << endl;
 
