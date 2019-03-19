@@ -13,8 +13,12 @@ public:
 
 	void generateCircuit();
 
-	std::vector<int> values;
-
+	
 	double fitness;
 	int size_vect;
+
+	vector<int> values;
+
+	int* vals;
+
 };

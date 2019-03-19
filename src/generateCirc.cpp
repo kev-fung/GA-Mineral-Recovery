@@ -13,24 +13,44 @@ int size = 10*2+1;
 int size_children = 4;
 
 
+bool Check_Validity(int &circuit_vector)
+{
+  return true;
+}
+
+
 void geneticAlgo(vector<Circuit> &circuits)
 {
+ 
+	int ite = 0;
+	int maxIte = 10;
+	bool convergence = false;
 	srand (time(NULL));
 
+	Circuit circuit0(size, 0);
+	Circuit circuit1(size, 0);
+
 	vector<Circuit> children;
-	Circuit circuit(2*10+1, 0);
-	Circuit circuit0(2*10+1, 0);
-	Circuit circuit1(2*10+1, 0);
+
+	// To get the max and min values of fitness
+	int min = 0;
+	int max = 0;
+	int indmax = 0; // index of the best vector
+
+
+
+    //while(ite<maxIte)
+    for (ite = 0; ite<maxIte;ite++)
+    {
+
 
 
     // keep track of the children.
 	cnt = 0;
 
 
+
 	// The best goes on unchanged.
-	int min = 0;
-	int max = 0;
-	int indmax = 0;
 	for (int i=0; i<size_children; i++)
 	{
 		if (circuits[i].fitness > max)
@@ -40,7 +60,15 @@ void geneticAlgo(vector<Circuit> &circuits)
 			}
 		if (circuits[i].fitness < min) min = circuits[i].fitness;
 	}
+	cout << "IND MAX" << indmax << endl;
 	children.push_back(circuits[indmax]);
+	
+	cout << "first child values: " << endl;
+	for (int i =0; i<size;i++){
+		cout << circuits[indmax].values[i] << " ";
+	}
+	cout << endl;
+
 	cnt++;
 
 
@@ -51,14 +79,16 @@ void geneticAlgo(vector<Circuit> &circuits)
 	int range = 0;
 	for (int i=0; i<size_children; i++)
 	{
-		circuits[i].fitness -= min;
+		circuits[i].fitness -= (min-1e-3);  // We subtract the min minus a little bit.
 		range += circuits[i].fitness;
 		intervals[i+1] = range;
 	}
 
 
-	for (int i=0; i<size_children;i++){
 
+	// Iterate till we have all the children.
+	while (cnt != size_children)
+	{
 
     	// Find the indexes of the parents.
 		double num0, num1; 
@@ -82,71 +112,110 @@ void geneticAlgo(vector<Circuit> &circuits)
 
 
 
-    	// Do the cross-over and the mutation..
+    	// Do the cross-over.
     	num0 = ((double) rand() / (RAND_MAX));
-	    if ( num0>0.8 && num0<1){
+	    if ( num0>0.8 && num0<1)
+	    {
     		// Select a random point in the vector.
-    		int pivot = (rand() % (size-1)) + 1;
+    		int pivot = rand() % (size-1) + 1;
 
     		// Do the first child.
     		for (int i=0; i<pivot; i++)
     		{
-    			circuit0.values[i] = circuits[ind1].values[i];
-    			circuit1.values[i] = circuits[ind0].values[i];
+    			circuit0.vals[i] = circuits[ind1].vals[i];
+    			circuit1.vals[i] = circuits[ind0].vals[i];
     		}
     		for (int i=pivot; i<size; i++)
     		{
-    			circuit0.values[i] = circuits[ind0].values[i];
-    			circuit1.values[i] = circuits[ind1].values[i];
+    			circuit0.vals[i] = circuits[ind0].vals[i];
+    			circuit1.vals[i] = circuits[ind1].vals[i];
+    		}
+    	} else
+    	{
+    		for (int i=0; i<size; i++)
+    		{
+    			circuit0.vals[i] = circuits[ind0].vals[i];
+    			circuit1.vals[i] = circuits[ind1].vals[i];
     		}
     	}
 
 
+    	// Do the mutation.
+    	int randInt;
+    	int stepSize =3;
+    	num0 = ((double) rand() / (RAND_MAX));
 
 
-    // Do the mutation.
+		// Mutate the feed.
+		if (num0>0 && num0<0.01)
+		{
+			randInt = rand()%stepSize+1;
+			circuit0.vals[0] = (circuit0.vals[0]+randInt)%12;
+			randInt = rand()%stepSize+1;
+			circuit1.vals[0] = (circuit1.vals[0]+randInt)%12;
+		}
+		for (int i=1; i<size; i++)
+		{
+			num0 = ((double) rand() / (RAND_MAX));
+			if (num0>0 && num0<0.01)
+			{
+				randInt = rand()%stepSize+1;
+				circuit0.vals[i] = (circuit0.vals[0]+randInt)%12;
+				randInt = rand()%stepSize+1;
+				circuit1.vals[i] = (circuit1.vals[0]+randInt)%12;
+			}
+		}
 
 
+
+		cout << "CHECKING VALIDITY" << endl;
+        if (Check_Validity(*circuit0.vals)){
+        	children.push_back(circuit0);
+        	cnt++;
+        }
+
+        if (cnt < size_children && Check_Validity(*circuit1.vals)){
+        	children.push_back(circuit1);
+			cnt++;
+        }
+
+
+	}  // end while on the children.
+
+
+
+	// updating the parents vector with the children
+	for (int i =0; i<size_children;i++){
+		for (int j =0; j<size; j++){
+			circuits[i].vals[j] = children[i].vals[j];	
+		}
+		circuits[i].fitness = rand()%6 - 5; // have to change it by calculation of the fitness
+	}
+
+
+	// ite++;
+	children.clear(); // clear the children vector for next iteration
+	cout << "N ITE:" << ite+1 << endl;
+
+
+	}  // end of the while loop on the iterations.
 
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	//cout << max << endl;
-	//cout << min << endl;
-	//cout << range<< endl;
-	cout << ind0 << "  " << ind1 << endl;
-	//for (int i=0; i<size_children; i++) cout << "  " << intervals[i];
-	cout << endl;
-}
 
 
 
 int main()
 {
-	// vector<int> circuit0(size);
-	// vector<int> circuit0(size);
 
-	// generateCircuit(circuit);
+	srand (time(NULL));
 
 	vector<Circuit> list_circuits;
 	Circuit test_circuit(2*10+1, 3);
 	test_circuit.generateCircuit();
 	list_circuits.push_back(test_circuit);
-
+	
 	Circuit test_circuit1(2*10+1, -2);
 	test_circuit1.generateCircuit();
 	list_circuits.push_back(test_circuit1);
@@ -159,7 +228,25 @@ int main()
 	test_circuit3.generateCircuit();
 	list_circuits.push_back(test_circuit3);
 
+    // Check the vectors.
+ 	cout << "what we put in the list" << endl;
+	for(int i = 0; i < 4; i++) {
+		for(int j = 0; j < size; j++) {
+			cout << list_circuits[i].vals[j] << " "; 
+		}
+		cout << "fitness: " << list_circuits[i].fitness << endl;
+	}
+	cout << endl;
+
 	geneticAlgo(list_circuits);
+
+	for (int i = 0; i<size_children;i++){
+		cout << "circuit " << i << endl;
+		for (int j =0; j<size; j++){
+		cout << list_circuits[i].vals[j] << " ";
+		}
+		cout << endl;
+	}
 
 }
 
