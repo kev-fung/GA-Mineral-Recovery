@@ -13,6 +13,7 @@ int main()
 	int size = 10*2+1;
 	int numCircuits = 4;
 	int sizeVec = 21;
+	int maxIte = 1;
 
 	srand (time(NULL));
 
@@ -40,7 +41,7 @@ int main()
 	cout << endl;
 
 
-	geneticAlgo(circuits, fitVec);
+	geneticAlgo(circuits, fitVec, maxIte);
 
 
 	for (int i = 0; i<numCircuits;i++){

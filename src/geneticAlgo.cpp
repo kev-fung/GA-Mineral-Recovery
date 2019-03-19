@@ -12,18 +12,15 @@ bool Check_Validity(vector<int> &circuit_vector)
 }
 
 
-void geneticAlgo(vector<vector<int>> &circuits, vector<double> fitVec)
+void geneticAlgo(vector<vector<int>> &circuits, vector<double> fitVec, int maxIte)
 {
 	int num0, num1, cnt;
 	int numUnits = 10;
 	int sizeCirc = numUnits*2+1;
 	int numCircuits = 4;
 
- 
 	int ite = 0;
-	int maxIte = 1;
 	bool convergence = false;
-
 
 	vector<int> circuit0(sizeCirc, 0);
 	vector<int> circuit1(sizeCirc, 0);
