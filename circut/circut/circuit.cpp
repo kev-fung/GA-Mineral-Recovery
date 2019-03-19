@@ -36,10 +36,11 @@ double Evaluate_Circuit(vector<int> circuit_vector, double tolerance, int max_it
 			int tail_id = unit_list[i].tail_num;
 
 			unit_list[i].output_con_tail(unit_list[conc_id], unit_list[tail_id]); //THIS RESETS FEED TO ) FOR NOW //Can be change
+			cout << "Conc bin feed: " << unit_list[num_units].feed.M[0] << "\t";
+
 
 			rel_tol = unit_list[i].rel_tol_calc();
 
-			unit_list[i].feed.reset_stream();
 			if (i == 0)
 			{
 				unit_list[0].feed.set_stream(circuit_feed);
@@ -49,8 +50,9 @@ double Evaluate_Circuit(vector<int> circuit_vector, double tolerance, int max_it
 				unit_list[i].feed.reset_stream();
 				unit_list[i].feed_old = unit_list[i].feed; // TBC: copy constructor
 			}
-			cout << "Conc bin fee: " << unit_list[num_units].feed.M[0] << "\t";
 		}
+
+		cout << endl;
 	}
 
 
