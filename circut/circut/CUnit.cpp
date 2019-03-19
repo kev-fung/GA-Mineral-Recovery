@@ -36,4 +36,4 @@ void CUnit::output_con_tail()
 
 class CUnit;
 
-//diff between /total feed
+//diff between the two feed /total feed

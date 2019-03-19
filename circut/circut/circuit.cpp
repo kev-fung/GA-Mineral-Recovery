@@ -20,6 +20,8 @@ double Evaluate_Circuit(vector<int> circuit_vector, double tolerance, int max_it
 		unit.output_con_tail(); //THIS RESETS FEED TO ) FOR NOW //Can be changed
 	}
 
+	double tot_valuable = unit_list[num_units].feed.M[0];
+	double tot_valuable = unit_list[num_units + 1].feed.M[1];
 
 	return 0;
 }
