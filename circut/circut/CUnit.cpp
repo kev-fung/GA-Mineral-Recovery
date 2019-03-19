@@ -26,9 +26,12 @@ void CUnit::output_con_tail(CUnit &unit_conc, CUnit &unit_tail)
 {
 	this->conc += (this->feed * this->conc_frac);
 	this->tail += (this->feed - this->conc);
-
+	//cout << "this conc: " << conc.M[0] << "  this tail: " << tail.M[0] << endl;
 	unit_conc.feed += this->conc;
+	//cout << "unit_conc.feed: " << unit_conc.feed.M[0] << endl;
 	unit_tail.feed += this->tail;
+	//cout << "unit_tail.feed: " << unit_tail.feed.M[0] << endl;
+	//cout << endl;
 }
 
 double CUnit::rel_tol_calc()
