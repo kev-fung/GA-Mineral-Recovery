@@ -26,7 +26,7 @@ public:
 
 	CStream feed;
 	CStream feed_old;
-	CStream tail, conc;			// Output streams to tail and concentration units.
+	CStream tail, conc;	// Output streams to tail and concentration units.
 
-	bool mark;					//A Boolean that is changed to true if the unit has been seen by other member functions and variables of CUnit
+	bool mark; //A Boolean that is changed to true if the unit has been seen by other member functions and variables of CUnit
 };
