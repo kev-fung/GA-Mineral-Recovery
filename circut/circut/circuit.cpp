@@ -11,6 +11,9 @@ CUnit circuit_tails, circuit_conc; //feed, and two bins for tails and concentrat
 
 double Evaluate_Circuit(vector<int> circuit_vector, double tolerance, int max_iterations)
 {
+	double valuable_price = 100;
+	double waste_cost = 400;
+
 	for (int i = 0; i < num_units; i++)
 	{	
 		// Fill up our unit_list vector from circuit_vector:
@@ -57,7 +60,12 @@ double Evaluate_Circuit(vector<int> circuit_vector, double tolerance, int max_it
 
 
 	double tot_valuable = unit_list[num_units].feed.M[0];
-	double tot_valuable = unit_list[num_units + 1].feed.M[1];
+	double tot_waste = unit_list[num_units].feed.M[1];
+
+	double fitness = (tot_valuable*valuable_price) - (tot_waste*waste_cost);
+
+	return fitness;
+
 
 	cout << "Concentration Output: " << endl;
 	for (int i = 0; i < 2; i++)
