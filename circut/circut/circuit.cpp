@@ -36,20 +36,23 @@ double Evaluate_Circuit(vector<int> circuit_vector, double tolerance, int max_it
 			int tail_id = unit_list[i].tail_num;
 
 			unit_list[i].output_con_tail(unit_list[conc_id], unit_list[tail_id]); //THIS RESETS FEED TO ) FOR NOW //Can be change
+			
 			cout << "Conc bin feed: " << unit_list[num_units].feed.M[0] << "\t";
-
 
 			rel_tol = unit_list[i].rel_tol_calc();
 
 			if (i == 0)
 			{
 				unit_list[0].feed.set_stream(circuit_feed);
+				//cout << "Unit 0 feed: " << unit_list[0].feed.M[0];
 			}
 			else
 			{
 				unit_list[i].feed.reset_stream();
 				unit_list[i].feed_old = unit_list[i].feed; // TBC: copy constructor
+				//cout << "Unit " << i << " feed: " << unit_list[i].feed.M[0] << endl;
 			}
+			cout << endl;
 		}
 
 		cout << endl;
