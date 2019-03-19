@@ -143,7 +143,7 @@ void geneticAlgo(vector<vector<int>> &circuits, vector<double> fitVec)
 
 
 		// Mutate the feed.
-		if (num0>0 && num0<0.50)
+		if (num0>0 && num0<0.01)
 		{
 			randInt = rand()%stepSize+1;
 			circuit0[0] = (circuit0[0]+randInt)%12;
@@ -153,7 +153,7 @@ void geneticAlgo(vector<vector<int>> &circuits, vector<double> fitVec)
 		for (int i=1; i<size; i++)
 		{
 			num0 = ((double) rand() / (RAND_MAX));
-			if (num0>0 && num0<0.50)
+			if (num0>0 && num0<0.01)
 			{
 				randInt = rand()%stepSize+1;
 				circuit0[i] = (circuit0[0]+randInt)%12;
