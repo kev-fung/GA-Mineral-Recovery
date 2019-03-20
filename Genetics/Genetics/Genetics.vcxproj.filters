@@ -24,6 +24,9 @@
     <ClInclude Include="Header.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Circuit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CUnit.cpp">
@@ -35,13 +38,16 @@
     <ClCompile Include="Validity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Performance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Genetic_Algorithm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Circuit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

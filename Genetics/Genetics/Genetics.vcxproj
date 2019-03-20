@@ -115,16 +115,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Circuit.h" />
     <ClInclude Include="CStream.h" />
     <ClInclude Include="CUnit.h" />
     <ClInclude Include="Header.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Circuit.cpp" />
     <ClCompile Include="CStream.cpp" />
     <ClCompile Include="CUnit.cpp" />
+    <ClCompile Include="Example.cpp" />
     <ClCompile Include="Genetic_Algorithm.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Performance.cpp" />
     <ClCompile Include="Validity.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
