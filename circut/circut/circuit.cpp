@@ -2,9 +2,9 @@
 #include "CUnit.h"
 #include "CStream.h"
 #include <iostream>
+#include <omp.h>
 
 using namespace std;
-
 
 Circuit::Circuit(double vprice, double wastec, double conc_feed, double tails_feed) : valuable_price(vprice), waste_cost(wastec), iter(0), rtol(1e9)
 {
@@ -26,11 +26,15 @@ Circuit::Circuit() : valuable_price(100.), waste_cost(500.), iter(0), rtol(1e9)
 
 double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double tolerance, int max_iterations)
 {
+	int nthreads, tid;			//set up omp variables
+	omp_set_num_threads(4);		//set number of threads, for efficiency
+
 	int max_iter = max_iterations;						// Max iterations
 	num_units = (circuit_vector.size() - 1) / 2;		// Number of units
 	unit_list = new CUnit[num_units + 2];
 
 	// Fill up our unit_list (vector of unit objects) from circuit_vector:
+#pragma omp parallel for private(i) schedule(guided)
 	for (int i = 0; i < num_units; i++)
 	{
 		CUnit unit(i, circuit_vector[(2 * i) + 1], circuit_vector[(2 * i) + 2]);
@@ -48,6 +52,7 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 	while (rtol > tolerance && iter < max_iter)			// while relative difference is more than specified tolerance
 	{
 		// Calculate Tail and Conc streams of all units for this time step!
+#pragma omp parallel for private(i) schedule(guided)
 		for (int i = 0; i < num_units; i++)
 		{
 			unit_list[i].output_con_tail();
@@ -56,6 +61,8 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 		// Store current feed into old feed and reset feeds to zero!
 		unit_list[0].store_feed();
 		unit_list[0].feed.set_stream(circuit_feed);		// [10, 100]
+
+#pragma omp parallel for private(i) schedule(guided)
 		for (int i = 1; i < num_units + 2; i++)			// INCLUDING END STREAMS!
 		{
 			unit_list[i].store_feed();
@@ -63,6 +70,7 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 		}
 
 		// Send the Tail and Conc streams to their destination units!
+#pragma omp parallel for private(i) schedule(guided)
 		for (int i = 0; i < num_units; i++)
 		{
 			conc_ID = unit_list[i].conc_id;
@@ -73,6 +81,8 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 
 		// Work out the relative tolerances!
 		max_rel_tol = -1e9;
+
+#pragma omp parallel for private(i) schedule(guided)
 		for (int i = 0; i < num_units; i++)
 		{
 			rel_tol = unit_list[i].rel_tol_calc();
