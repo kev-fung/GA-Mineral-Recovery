@@ -1,8 +1,8 @@
 #pragma once
-#pragma once
 #include "CUnit.h"
 #include "CStream.h"
 #include <vector>
+#include <thread>
 
 class Circuit
 {
