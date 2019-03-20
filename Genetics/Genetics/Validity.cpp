@@ -37,7 +37,7 @@ bool Check_Validity(vector<int> circuit_vector) {
 	Checks:
 	//-----
 	1. every unit accessible from the feed
-	2. every unit has roote forward to both outlets
+	2. every unit has route forward to both outlets
 	3. no self-recycle
 	4. destination for both products is not the same
 
@@ -46,8 +46,6 @@ bool Check_Validity(vector<int> circuit_vector) {
 	  True if all criteria are met
 	  False  otherwise.
 	*/
-
-	//num_units = (circuit_vector.size() - 1) / 2;    // Number of units
 
 	units.resize(num_units);
 
@@ -72,7 +70,6 @@ bool Check_Validity(vector<int> circuit_vector) {
 		}
 	}
 
-	//---------------------------------------------
 	// --- check if exits can be seen ---
 	for (int j = 0; j < num_units; j++) {
 		for (int i = 0; i < num_units; i++) {
@@ -88,7 +85,6 @@ bool Check_Validity(vector<int> circuit_vector) {
 		}
 	}
 
-	// -------------------------
 	//---Check no message send to itself---
 	int id = 0;
 	for (int i = 1; i < circuit_vector.size() - 1; i += 2) {
@@ -98,13 +94,11 @@ bool Check_Validity(vector<int> circuit_vector) {
 		id += 1;
 	}
 
-	//--------------------------------------
 	// --- Check no pairs are the same ---
 	for (int i = 1; i < (circuit_vector.size() - 1); i += 2) {
 		if (circuit_vector[i] == circuit_vector[i + 1]) {
 			return false;
 		}
 	}
-	//-------------------------------------
 	return true;
 }

@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
 	int numCircuits = 4; // TO TUNE
-	int maxIte = 100;
+	int maxIte = 10;
 	double tol = 1e-6;
 	int max_iterations = 1000;
 
@@ -19,15 +19,16 @@ int main() {
 	// Generating the parents
 	cout << "Generating parents" << endl;
 	for (int i = 0; i < numCircuits; i++) {
-		while(Check_Validity(circuit) != true){  
+		while(!Check_Validity(circuit)){  
 			generateCircuit(circuit);
 		}
-		cout << "Parent: ";
+
+		cout << "Circuit: ";
 		for (int j = 0; j < sizeVec; j++) {
 			cout << circuit[j] << " ";
 		}
 		cout << endl;
-
+		
 		circuits[i] = circuit;
 		fitVec[i] = Evaluate_Circuit(circuit, tol, max_iterations);
 	

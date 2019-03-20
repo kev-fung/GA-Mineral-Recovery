@@ -10,7 +10,7 @@
 using namespace std;
 
 extern const int num_units;
-extern const int sizeVec;
+extern int sizeVec;
 
 bool Check_Validity(vector<int> circuit_vector);
 
