@@ -1,2 +1,7 @@
-﻿  CStream.cpp
+﻿  Genetic_Algorithm.cpp
+c:\users\laura su\source\repos\genetics\genetics\genetic_algorithm.cpp(18): warning C4101: 'num1': unreferenced local variable
+c:\users\laura su\source\repos\genetics\genetics\genetic_algorithm.cpp(18): warning C4101: 'num0': unreferenced local variable
+  main.cpp
+c:\users\laura su\source\repos\genetics\genetics\main.cpp(16): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
   Genetics.vcxproj -> C:\Users\Laura Su\source\repos\Genetics\Debug\Genetics.exe

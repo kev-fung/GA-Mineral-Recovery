@@ -13,20 +13,20 @@ void mark_units(int unit_num) {
 
 	//If conc_num does not point at a circuit outlet recursively call the function
 	int counter = 0;
-	if (units[unit_num].conc_num < num_units) {
-		mark_units(units[unit_num].conc_num);
+	if (units[unit_num].conc_id < num_units) {
+		mark_units(units[unit_num].conc_id);
 	}
 	else {
-		if (units[unit_num].conc_num == num_units) seen_conc = true;
+		if (units[unit_num].conc_id == num_units) seen_conc = true;
 		else seen_tail = true;
 	}
 
 	//If tails_num does not point at a circuit outlet recursively call the function
-	if (units[unit_num].tails_num < num_units && counter <= 50)
-		mark_units(units[unit_num].tails_num);
+	if (units[unit_num].tail_id < num_units && counter <= 50)
+		mark_units(units[unit_num].tail_id);
 
 	else {
-		if (units[unit_num].conc_num == num_units) seen_conc = true;
+		if (units[unit_num].conc_id == num_units) seen_conc = true;
 		else seen_tail = true;
 	}
 }
@@ -51,8 +51,8 @@ bool Check_Validity(vector<int> circuit_vector) {
 
 	// convert vector index to unit number
 	for (int i = 0; i < num_units; i++) {
-		units[i].conc_num = circuit_vector[i * 2 + 1];
-		units[i].tails_num = circuit_vector[i * 2 + 2];
+		units[i].conc_id = circuit_vector[i * 2 + 1];
+		units[i].tail_id = circuit_vector[i * 2 + 2];
 	}
 
 	feed_num = circuit_vector[0];
