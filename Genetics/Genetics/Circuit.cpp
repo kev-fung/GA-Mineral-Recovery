@@ -32,7 +32,6 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 
 	int feed_id = circuit_vector[0];					// Save id of feed unit
 
-
 	// Fill up our unit_list (vector of unit objects) from circuit_vector:
 	for (int i = 0; i < num_units; i++)
 	{
