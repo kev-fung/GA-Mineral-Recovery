@@ -29,8 +29,8 @@ private:
 	double tot_waste;						// Total wastes in final concentration stream
 	double fitness;							// Performance metric of the circuit
 
-	CUnit* unit_list;
-	int num_units;
+	CUnit* unit_list;						// Dynamic array of units
+	int num_units;							// Number of units in circuit
 	double circuit_feed[2];					// Feed for valuable and waste component
 	CUnit circuit_tails, circuit_conc;		// Bins for tails and concentration
 
