@@ -1,6 +1,9 @@
 #include "Circuit.h"
 #include "CUnit.h"
 #include "CStream.h"
+#include <iostream>
+
+using namespace std;
 
 
 Circuit::Circuit(double vprice, double wastec, double conc_feed, double tails_feed) : valuable_price(vprice), waste_cost(wastec), iter(0), rtol(1e9)
@@ -23,8 +26,8 @@ Circuit::Circuit() : valuable_price(100.), waste_cost(500.), iter(0), rtol(1e9)
 
 double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double tolerance, int max_iterations)
 {
-	int max_iter = max_iterations;									// Max iterations
-	num_units = (circuit_vector.size() - 1) / 2;					// Number of units
+	int max_iter = max_iterations;						// Max iterations
+	num_units = (circuit_vector.size() - 1) / 2;		// Number of units
 	unit_list = new CUnit[num_units + 2];
 
 	// Fill up our unit_list (vector of unit objects) from circuit_vector:
@@ -83,6 +86,7 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 		iter++;
 	}
 
+	cout << "iter: " << iter << endl;
 	// Calculate fitness value based on economical value of concentration unit
 	tot_valuable = unit_list[num_units].feed.M[0];
 	tot_waste = unit_list[num_units].feed.M[1];
