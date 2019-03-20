@@ -42,20 +42,20 @@ int main() {
 	cout << endl;
 
 
-	//// Check the vectors.
-	//cout << "Input Vectors" << endl;
-	//for (int i = 0; i < numCircuits; i++) {
-	//	for (int j = 0; j < sizeVec; j++) {
-	//		cout << circuits[i][j] << " ";
-	//	}
-	//	cout << " Fitness: " << fitVec[i] << endl;
-	//}
-	//cout << endl;
+	// Check the vectors.
+	cout << "Input Vectors" << endl;
+	for (int i = 0; i < numCircuits; i++) {
+		for (int j = 0; j < sizeVec; j++) {
+			cout << circuits[i][j] << " ";
+		}
+		cout << " Fitness: " << fitVec[i] << endl;
+	}
+	cout << endl;
 
 
 	vector<int> best_circuit;
 	// Genetic algorithm
-	//cout << "Genetic algorithm" << endl;
+	cout << "Genetic algorithm" << endl;
 	best_circuit = geneticAlgo(circuits, fitVec, maxIte, tol, max_iterations);
 	//cout << endl;
 

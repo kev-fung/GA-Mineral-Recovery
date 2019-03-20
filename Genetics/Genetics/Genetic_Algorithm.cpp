@@ -71,11 +71,11 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 		children[0] = circuits[indmax];
 		
 		
-		cout << "best parent: " << endl;
+		/*cout << "best parent: " << endl;
 		for (int i = 0; i < sizeVec; i++) {
 			cout << circuits[indmax][i] << " ";
 		}
-		cout << endl;
+		cout << endl;*/
 
 
 		// Find the range of fitness.
@@ -193,13 +193,13 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 
 		best_child = circuits[indmax];
 
-		cout << "best child: " << endl;
+		/*cout << "best child: " << endl;
 		for (int i = 0; i < sizeVec; i++) {
 			cout << circuits[indmax][i] << " ";
 		}
 
 		cout << "fitness: " << fitVec[indmax];
-		cout << endl;
+		cout << endl;*/
 
 		it++;
 		cout << it << endl;
