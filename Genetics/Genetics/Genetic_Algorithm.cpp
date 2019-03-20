@@ -1,0 +1,168 @@
+#include "Header.h"
+
+// Number of units, only has to be defined once
+const int num_units = 10;
+const int sizeVec = 21;
+
+void generateCircuit(vector<int> &vals) {
+	// Set the feed.
+	vals[0] = rand() % 10;
+
+	int cnt = 1; // Keeping track of the number of values generated
+	int num0, num1;
+
+	for (int i = 0; i < 10; i++) {
+		bool fin = false;
+		while (fin == false) {
+			num0 = rand() % 12;
+			num1 = rand() % 12;
+			// Check that none of the random units are equal to the current unit and that the 2 units generated are not the same
+			if (num0 != num1 && num0 != i && num1 != i) fin = true;
+		}
+		vals[cnt] = num0;
+		vals[cnt + 1] = num1;
+
+		cnt += 2;
+	}
+}
+
+
+void geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, int iter, double tol, int max_iterations) {
+	int num0, num1, cnt;
+	int sizeCirc = num_units * 2 + 1;
+	int numCircuits = 4;
+
+	vector<vector<int>> children(numCircuits, vector<int>(sizeCirc, 0));
+
+	vector<int> circuit0(sizeCirc, 0);
+	vector<int> circuit1(sizeCirc, 0);
+
+	double min;
+	double max;
+	int indmax; 
+
+	for (int it = 0; it < iter; it++) {
+		// Keep track of the children.
+		cnt = 0;
+
+		// To get the max and min values of fitness
+		min = fitVec[0];
+		max = fitVec[0];
+
+		// Index of the best vector
+		indmax = 0;
+
+		// The best goes on unchanged.
+		for (int i = 1; i < numCircuits; i++) {
+			if (fitVec[i] > max) {
+				max = fitVec[i];
+				indmax = i;
+			}
+			if (fitVec[i] < min) min = fitVec[i];
+		}
+		children[0] = circuits[indmax];
+		cnt++;
+
+
+		// Find the range of fitness.
+		vector<double> intervals(numCircuits + 1);
+		intervals[0] = 0;
+		double range = 0;
+		for (int i = 0; i < numCircuits; i++) {
+			fitVec[i] -= (min - 1e-3);  // We subtract the min minus a little bit.
+			range += fitVec[i];
+			intervals[i + 1] = range;
+		}
+
+
+		// Iterate until we have all the children.
+		while (cnt != numCircuits) {
+			// Find the indexes of the parents.
+			double num0, num1;
+			int ind0 = 0, ind1 = 0;
+			while (ind0 == ind1) {
+				// Pick a random number.
+				num0 = ((double)rand() / (RAND_MAX));
+				num0 *= range;
+				num1 = ((double)rand() / (RAND_MAX));
+				num1 *= range;
+
+				for (int i = 1; i < numCircuits + 1; i++) {
+					if (num0 > intervals[i - 1] && num0 <= intervals[i]) ind0 = i - 1;
+					if (num1 > intervals[i - 1] && num1 <= intervals[i]) ind1 = i - 1;
+				}
+			}
+
+			cout << "ind0 ind1: " << ind0 << " " << ind1 << endl;
+
+			// Do the cross-over.
+			num0 = ((double)rand() / (RAND_MAX)); // cross-over probability
+			if (num0 > 0.8 && num0 < 1) { // TO TUNE
+				// Select a random point in the vector.
+				int pivot = rand() % (sizeCirc - 1) + 1;
+
+				// Do the two children.
+				for (int i = 0; i < pivot; i++) {
+					circuit0[i] = circuits[ind1][i];
+					circuit1[i] = circuits[ind0][i];
+				}
+				for (int i = pivot; i < sizeCirc; i++) {
+					circuit0[i] = circuits[ind0][i];
+					circuit1[i] = circuits[ind1][i];
+				}
+			}
+			// Case when the cross-over doesn't happen.
+			else {
+				circuit0 = circuits[ind0];
+				circuit1 = circuits[ind1];
+			}
+
+
+			// Do the mutation.
+			int randInt;
+			int stepSize = 3;
+			num0 = ((double)rand() / (RAND_MAX)); // mutation probability
+
+			// Mutate the feed.
+			if (num0 >= 0 && num0 < 0.01) { // TO TUNE
+				randInt = rand() % stepSize + 1;
+				circuit0[0] = (circuit0[0] + randInt) % num_units;
+				randInt = rand() % stepSize + 1;
+				circuit1[0] = (circuit1[0] + randInt) % num_units;
+			}
+			// Mutate the rest of the circuit.
+			for (int i = 1; i < sizeCirc; i++) {
+				num0 = ((double)rand() / (RAND_MAX)); // mutation probability
+				
+				if (num0 >= 0 && num0 < 0.01) { // TO TUNE
+					randInt = rand() % stepSize + 1;
+					circuit0[i] = (circuit0[0] + randInt) % (num_units + 2);
+					randInt = rand() % stepSize + 1;
+					circuit1[i] = (circuit1[0] + randInt) % (num_units + 2);
+				}
+			}
+
+			// Checking validity of the potential valid child.
+			if (Check_Validity(circuit0)) {
+				children[cnt] = circuit0;
+				cnt++;
+			}
+			if (cnt < numCircuits && Check_Validity(circuit1)) {
+				children[cnt] = circuit1;
+				cnt++;
+			}
+		}  // end while on the children.
+
+
+		// Updating the parents vector with the children.
+		for (int i = 0; i < numCircuits; i++) {
+			circuits[i] = children[i];
+
+			// Compute the new fitness
+			fitVec[i] = Evaluate_Circuit(children[i], tol, max_iterations);
+			cout << fitVec[i] << " ";
+
+		}
+		cout << "N ITE: " << it + 1 << endl;
+	}  // end of the while loop on the iterations.
+}
