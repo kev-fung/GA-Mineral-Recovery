@@ -13,7 +13,6 @@ CUnit::CUnit(int id, int conc_num, int tail_num):id(id), conc_id(conc_num), tail
 
 CUnit::CUnit()
 {
-	//cout << "Unit created" << endl;
 }
 
 
