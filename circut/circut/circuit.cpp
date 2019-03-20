@@ -87,6 +87,10 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 	}
 
 	cout << "iter: " << iter << endl;
+
+	if (iter == max_iter)
+		return circuit_feed[1] * waste_cost;
+
 	// Calculate fitness value based on economical value of concentration unit
 	tot_valuable = unit_list[num_units].feed.M[0];
 	tot_waste = unit_list[num_units].feed.M[1];
