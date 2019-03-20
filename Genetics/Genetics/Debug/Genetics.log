@@ -1,0 +1,3 @@
+﻿  main.cpp
+c:\users\laura su\source\repos\genetics\genetics\main.cpp(12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Genetics.vcxproj -> C:\Users\Laura Su\source\repos\Genetics\Debug\Genetics.exe
