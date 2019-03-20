@@ -32,8 +32,8 @@ int main()
 	if (diff > tol) // if fitness reaches this known value for the specified circuit (myarray[]) test should pass
 		pass = false;
 
-	if (pass) { cout << "PASSED" << endl; }
-	else { cout << "FAILED" << endl; }
+	if (pass) { cout << "TEST PASSED" << endl; }
+	else { cout << "TEST FAILED" << endl; }
 
 	cout << "Fitness: " << fitness << endl;
 
