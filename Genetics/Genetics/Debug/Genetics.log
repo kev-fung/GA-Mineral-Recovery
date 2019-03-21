@@ -1,5 +1,3 @@
-﻿  Circuit.cpp
-  Example.cpp
-  main.cpp
-  Generating Code...
-  Genetics.vcxproj -> C:\Users\Laura Su\source\repos\Genetics\Debug\Genetics.exe
+﻿  main.cpp
+c:\users\laura su\acse-4-project-3-gold\genetics\genetics\main.cpp(28): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Genetics.vcxproj -> C:\Users\Laura Su\acse-4-project-3-gold\Genetics\Debug\Genetics.exe
