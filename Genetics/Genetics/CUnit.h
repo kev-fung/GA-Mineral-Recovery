@@ -1,13 +1,15 @@
 #pragma once
 #include "Header.h"
 #include "CStream.h"
-#include "vector"
+#include <vector>
+
+using namespace std;
 
 class CUnit {
 public:
 	// Constructors:
 	CUnit();
-	CUnit(int id, int conc_num, int tail_num);
+	CUnit(int id, int conc_num, int tail_num, vector<double> fraction);
 	~CUnit();
 
 	// Methods:
@@ -20,8 +22,9 @@ public:
 	int id;						// Unit ID
 	int conc_id;				// Index of the unit to which this unit’s concentrate stream is connected 
 	int tail_id;				// Index of the unit to which this unit’s concentrate stream is connected 
+	int num_components;		// Number of components in flow
 
-	double conc_frac[2];		// conc_frac[0] : valuable frac, conc_frac[1] : waste frac in concentrate stream
+	vector<double> conc_frac;	// conc_frac[0] : valuable frac, conc_frac[1:n] : waste frac in concentrate stream
 
 	CStream feed_old, feed;
 	CStream tail, conc;			// Stored output streams to tail and concentration units.

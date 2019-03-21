@@ -19,6 +19,8 @@ extern int max_iterations;
 
 bool Check_Validity(vector<int> circuit_vector);
 
-vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double>& fitVec, int minIte, int maxIte, int bestIndCnt, double proCrosOver, double proMut);
+vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, 
+	int minIte, int maxIte, int bestIndCnt, double proCrosOver, double proMut, 
+	int num_components, vector<double> feed, vector<double> price, vector<double> fraction);
 
 void generateCircuit(vector<int> &vals);

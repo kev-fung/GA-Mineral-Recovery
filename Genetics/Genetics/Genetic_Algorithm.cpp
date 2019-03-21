@@ -11,7 +11,8 @@ void generateCircuit(vector<int> &vals) {
 }
 
 
-vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, int minIte, int maxIte, int bestIndCnt, double proCrosOver, double proMut) {
+vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, int minIte, int maxIte, int bestIndCnt, double proCrosOver, double proMut, int num_components, vector<double> feed, vector<double> price, vector<double> fraction)
+{
 	// Size of the vector of int and number of circuits
 	int sizeCirc = circuits[0].size();   
 	int numCircuits = circuits.size();   
@@ -163,8 +164,8 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 
 
 			// Compute the new fitness
-			Circuit circ(100.0, -500.0, 10, 100); // rebuilding the object
-			fitVec[i] = circ.Evaluate_Circuit(children[i], tol, max_iterations);
+			Circuit circ(num_components, feed, price); // rebuilding the object
+			fitVec[i] = circ.Evaluate_Circuit(children[i], tol, max_iterations, fraction);
 		}
 
 		// Getting the best child vector

@@ -70,7 +70,7 @@ void interface(int &num_units, int &num_components, vector<double> &flow, vector
 		break;
 	case 2:
 		cout << "Please type the number of components in the flow of the circuit: ";
-		num_components = input<int>(20, 0); //input number of components
+		num_components = input<int>(20, 2); //input number of components
 		cout << endl;
 
 		flow.reserve(num_components); //resize fraction vector to the number of components
@@ -118,6 +118,8 @@ double tol = 1e-6;
 int max_iterations = 2000;
 
 
+
+
 int main() {
 	int numCircuits = 100;  // TO TUNE
 
@@ -136,6 +138,20 @@ int main() {
 	// Circuit and list of circuits
 	vector<int> circuit(sizeVec, 0);
 	vector<vector<int>> circuits(numCircuits, vector<int>(sizeVec, 0));
+	
+	
+	// Circuit information
+	int num_components = 2;	//numnber of flow components in circuit
+	vector<double> flow(num_components); //flow rate values for each component
+	vector<double> fraction(num_components); //fraction of concentrate stream for each component
+	vector<double> prices(num_components); //prices of each component
+	//Assigning values needs to be done manually
+	flow[0] = 10;		//kg/s
+	flow[1] = 100;		//kg/s
+	fraction[0] = 0.20;
+	fraction[1] = 0.05;
+	prices[0] = 100;
+	prices[1] = -500;
 
 	// List of fitness values
 	vector<double> fitVec(numCircuits, 0);
@@ -146,10 +162,10 @@ int main() {
 		while(!Check_Validity(circuit)){  
 			generateCircuit(circuit);
 		}
-		Circuit circ(100.0, -500.0, 10, 100);
+		Circuit circ(num_components, flow, prices);
 
 		circuits[i] = circuit;
-		fitVec[i] = circ.Evaluate_Circuit(circuit, tol, max_iterations);
+		fitVec[i] = circ.Evaluate_Circuit(circuit, tol, max_iterations, fraction);
 	
 		// Reinitialise the vector with 0
 		for (int j = 0; j < sizeVec; j++) {
@@ -173,7 +189,7 @@ int main() {
 	vector<int> best_circuit;
 	// Genetic algorithm
 	//cout << "Genetic algorithm" << endl;
-	best_circuit = geneticAlgo(circuits, fitVec, minIte, maxIte, bestIndCnt, proCrosOver, proMut);
+	best_circuit = geneticAlgo(circuits, fitVec, minIte, maxIte, bestIndCnt, proCrosOver, proMut, num_components, flow, prices, fraction);
 
 	// Print the output.
 	cout << "Output best vector" << endl;
@@ -181,9 +197,9 @@ int main() {
 		cout << best_circuit[j] << " ";
 	}
 
-	Circuit circ(100.0, -500.0, 10, 100);
+	Circuit circ(num_components, flow, prices);
 	double best_fitness;
-	best_fitness = circ.Evaluate_Circuit(best_circuit, tol, max_iterations);
+	best_fitness = circ.Evaluate_Circuit(best_circuit, tol, max_iterations, fraction);
 	cout << "Fitness: " << best_fitness;
 	cout << endl;
 	

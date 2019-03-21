@@ -5,25 +5,39 @@
 
 using namespace std;
 
-
-Circuit::Circuit(double vprice, double wastec, double conc_feed, double tails_feed) : valuable_price(vprice), waste_cost(wastec), iter(0), rtol(1e9)
+Circuit::Circuit(int num_components, vector<double> feed, vector<double> prices) : num_components(num_components)
 {
-	this->circuit_feed[0] = conc_feed;
-	this->circuit_feed[1] = tails_feed;
+	this->circuit_feed.resize(feed.size());
+	this->price.resize(prices.size());
+	for (int i = 0; i < feed.size(); i++)
+	{
+		this->circuit_feed[i] = feed[i];
+		this->price[i] = prices[i];
+	}
 }
+
+//Circuit::Circuit(double vprice, double wastec, double conc_feed, double tails_feed) : valuable_price(vprice), waste_cost(wastec), iter(0), rtol(1e9)
+//{
+//	this->circuit_feed[0] = conc_feed;
+//	this->circuit_feed[1] = tails_feed;
+//}
 
 Circuit::~Circuit() {
 	delete[] unit_list;
 }
 
-Circuit::Circuit() : valuable_price(100.), waste_cost(-500.), iter(0), rtol(1e9) 
+Circuit::Circuit() : iter(0), rtol(1e9) 
 {
+	this->circuit_feed.resize(2);
+	this->price.resize(2);
 	this->circuit_feed[0] = 10;
 	this->circuit_feed[1] = 100;
+	this->price[0] = 100;
+	this->price[1] = -500;
 }
 
 
-double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double tolerance, int max_iterations) {
+double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double tolerance, int max_iterations, vector<double> fraction) {
 	int max_iter = max_iterations;						// Max iterations
 	num_units = (circuit_vector.size() - 1) / 2;		// Number of units
 	unit_list = new CUnit[num_units + 2];
@@ -32,7 +46,7 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 
 	// Fill up our unit_list (vector of unit objects) from circuit_vector:
 	for (int i = 0; i < num_units; i++) {
-		CUnit unit(i, circuit_vector[(2 * i) + 1], circuit_vector[(2 * i) + 2]);
+		CUnit unit(i, circuit_vector[(2 * i) + 1], circuit_vector[(2 * i) + 2], fraction);
 		unit_list[i] = unit;
 
 		unit_list[i].feed = CStream(circuit_feed);		// Initialise all unit feeds with circuit feed
@@ -80,14 +94,16 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 		iter++;
 	}
 	if (iter == max_iter) {
-		return circuit_feed[1] * waste_cost;
+		return circuit_feed[1] * price[1];
 	}
 		
 	// Calculate fitness value based on economical value of concentration unit
-	tot_valuable = unit_list[num_units].feed.M[0];
-	tot_waste = unit_list[num_units].feed.M[1];
+	double fitness = 0;
+	for (int i = 0; i < num_components; i++)
+	{
+		fitness += unit_list[num_units].feed.M[i] * price[i];
 
-	fitness = (tot_valuable*valuable_price) + (tot_waste*waste_cost);
+	}
 
 	return fitness;
 }
