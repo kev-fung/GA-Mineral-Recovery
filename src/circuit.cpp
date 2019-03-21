@@ -1,47 +1,95 @@
-#include "circuit.h"
+#include "Circuit.h"
+#include "CUnit.h"
+#include "CStream.h"
+#include <iostream>
 
 using namespace std;
 
 
-Circuit::Circuit(int size, double fit): size_vect(size), fitness(fit) 
+Circuit::Circuit(double vprice, double wastec, double conc_feed, double tails_feed) : valuable_price(vprice), waste_cost(wastec), iter(0), rtol(1e9)
 {
-	vals = new int[size];
+	this->circuit_feed[0] = conc_feed;
+	this->circuit_feed[1] = tails_feed;
 }
 
-Circuit::~Circuit()
+Circuit::~Circuit() {
+	delete[] unit_list;
+}
+
+Circuit::Circuit() : valuable_price(100.), waste_cost(-500.), iter(0), rtol(1e9) 
 {
-	//cout << "deleting" << endl;
-	//delete[] vals;
+	this->circuit_feed[0] = 10;
+	this->circuit_feed[1] = 100;
 }
 
 
+double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double tolerance, int max_iterations) {
+	int max_iter = max_iterations;						// Max iterations
+	num_units = (circuit_vector.size() - 1) / 2;		// Number of units
+	unit_list = new CUnit[num_units + 2];
 
-void Circuit::generateCircuit()
-{
-	
-	// Set the feed.
-	vals[0] = rand()%10;
+	int feed_id = circuit_vector[0];					// Save id of feed unit
 
-	
-	/* generate number between 0 and 9: */
-	int cnt = 1;
-	int num0, num1;
+	// Fill up our unit_list (vector of unit objects) from circuit_vector:
+	for (int i = 0; i < num_units; i++) {
+		CUnit unit(i, circuit_vector[(2 * i) + 1], circuit_vector[(2 * i) + 2]);
+		unit_list[i] = unit;
 
+		unit_list[i].feed = CStream(circuit_feed);		// Initialise all unit feeds with circuit feed
+	}
 
-	for (int i = 0; i < 10;i++){
-		bool fin=false;
-		while(fin==false)
-		{
-			num0 = rand() % 12;
-			num1 = rand() % 12;
-			if (num0 != num1 && num0!=i && num1!=i) fin = true;
+	// Insert conc bin and tail bin
+	unit_list[num_units];
+	unit_list[num_units + 1];
+	unit_list[num_units].feed = CStream();				// Final concentration stream
+	unit_list[num_units + 1].feed = CStream();			// Final tail stream 
+
+	while (rtol > tolerance && iter < max_iter)			// while relative difference is more than specified tolerance
+	{
+		// Calculate Tail and Conc streams of all units for this time step!
+		for (int i = 0; i < num_units; i++) {
+			unit_list[i].output_con_tail();
 		}
-		vals[cnt] = num0;
-		vals[cnt+1] = num1;
 
-		cnt+=2;
-	}	
+		// Store current feed into old feed and reset feeds to zero!		
+		for (int i = 0; i < num_units + 2; i++)			// INCLUDING END STREAMS!
+		{
+			unit_list[i].store_feed();
+			unit_list[i].feed.reset_stream();			// [0, 0]
+		}
+		unit_list[feed_id].feed.set_stream(circuit_feed);		// [10, 100]
+
+		// Send the Tail and Conc streams to their destination units!
+		for (int i = 0; i < num_units; i++) {
+			conc_ID = unit_list[i].conc_id;
+			tail_ID = unit_list[i].tail_id;
+
+			unit_list[i].send_streams(unit_list[conc_ID], unit_list[tail_ID]);
+		}
+
+		// Work out the relative tolerances!
+		max_rel_tol = -1e9;
+		for (int i = 0; i < num_units; i++) {
+			rel_tol = unit_list[i].rel_tol_calc();
+			if (rel_tol > max_rel_tol) {
+				max_rel_tol = rel_tol;
+			}
+		}
+
+		rtol = max_rel_tol;
+		iter++;
+	}
+	if (iter == max_iter) {
+		return circuit_feed[1] * waste_cost;
+	}
+		
+	// Calculate fitness value based on economical value of concentration unit
+	tot_valuable = unit_list[num_units].feed.M[0];
+	tot_waste = unit_list[num_units].feed.M[1];
+
+	fitness = (tot_valuable*valuable_price) + (tot_waste*waste_cost);
+
+	return fitness;
 }
 
-
-
+class Circuit;

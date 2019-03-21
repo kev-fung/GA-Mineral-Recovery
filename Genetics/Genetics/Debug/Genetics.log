@@ -1,4 +1,0 @@
-﻿  Genetic_Algorithm.cpp
-c:\users\kevin fung\desktop\acse4_gold\acse-4-project-3-gold\genetics\genetics\genetic_algorithm.cpp(158): warning C4101: 'randInt': unreferenced local variable
-c:\users\kevin fung\desktop\acse4_gold\acse-4-project-3-gold\genetics\genetics\genetic_algorithm.cpp(241): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Genetics.vcxproj -> C:\Users\Kevin Fung\Desktop\ACSE4_Gold\acse-4-project-3-gold\Genetics\Debug\Genetics.exe
