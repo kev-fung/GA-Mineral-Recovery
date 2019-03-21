@@ -20,7 +20,8 @@ void mark_units(int unit_num) {
 	}
 	else {
 		if (units[unit_num].conc_id == num_units) seen_conc = true;
-		else seen_tail = true;
+		if (units[unit_num].conc_id == num_units+1) seen_tail = true;
+		//else seen_tail = true;
 	}
 
 	// If tails_num does not point at a circuit outlet recursively call the function
@@ -28,8 +29,10 @@ void mark_units(int unit_num) {
 		mark_units(units[unit_num].tail_id);
 
 	else {
+		//if (units[unit_num].conc_id == num_units + 1) seen_tail = true;
 		if (units[unit_num].conc_id == num_units) seen_conc = true;
-		else seen_tail = true;
+		if (units[unit_num].conc_id == num_units + 1) seen_tail = true;
+		//else seen_conc = true;
 	}
 }
 

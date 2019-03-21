@@ -1,5 +1,6 @@
 #include "Header.h"
 #include "Circuit.h"
+#include <time.h>
 
 using namespace std;
 
@@ -16,9 +17,9 @@ int main() {
 	int numCircuits = 100;  // TO TUNE
 
 	// Inputs for convergence
-	int bestIndCnt = 1000; // Minimum number of iterations for the best circuit to be the same
-	int minIte = 10000; // Minimum number of iterations to be done
-	int maxIte = 15000; // Maximum number of iterations possible
+	int bestIndCnt = 10; // Minimum number of iterations for the best circuit to be the same
+	int minIte = 100; // Minimum number of iterations to be done
+	int maxIte = 150; // Maximum number of iterations possible
 
 	// Genetic algorithm parameters.
 	double proCrosOver = 0.2;  // Probability of cross-over.
@@ -68,14 +69,19 @@ int main() {
 	vector<int> best_circuit;
 	// Genetic algorithm
 	//cout << "Genetic algorithm" << endl;
-	best_circuit = geneticAlgo(circuits, fitVec, minIte, maxIte, bestIndCnt, proCrosOver, proMut);
 
-	// Print the output.
+	clock_t start = clock();
+	best_circuit = geneticAlgo(circuits, fitVec, minIte, maxIte, bestIndCnt, proCrosOver, proMut);
+	clock_t end = clock();
+	cout << "Time spent: " << (double)(end - start) / (double)(CLOCKS_PER_SEC) << "s" << endl;
+
+	// Print the output
 	cout << "Output best vector" << endl;
 	for (int j = 0; j < sizeVec; j++) {
 		cout << best_circuit[j] << " ";
 	}
 
+	// Print the fitness of the output
 	Circuit circ(100.0, -500.0, 10, 100);
 	double best_fitness;
 	best_fitness = circ.Evaluate_Circuit(best_circuit, tol, max_iterations);
