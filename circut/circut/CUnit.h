@@ -13,7 +13,7 @@ public:
 
 	// Methods:
 	void output_con_tail();
-	void send_streams(CUnit &unit_conc, CUnit &unit_tail);
+	void send_stream(CUnit & unit, CStream & stream);
 	void store_feed();
 	double rel_tol_calc();
 

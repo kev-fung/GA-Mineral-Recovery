@@ -2,7 +2,7 @@
 #include "CUnit.h"
 #include "CStream.h"
 #include <vector>
-#include <thread>
+#include <omp.h>
 
 class Circuit
 {

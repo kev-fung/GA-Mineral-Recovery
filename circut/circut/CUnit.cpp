@@ -29,16 +29,18 @@ void CUnit::output_con_tail()
 }
 
 
-void CUnit::send_streams(CUnit & unit_conc, CUnit & unit_tail)
+void CUnit::send_stream(CUnit & unit, CStream & stream)
 {
-	unit_conc.feed += this->conc;
-	unit_tail.feed += this->tail;
+	unit.feed += stream;
 }
 
 
 void CUnit::store_feed()
 {
-	this->feed_old = this->feed;
+	for (int i = 0; i < 2; i++)
+	{
+		this->feed_old.M[i] = this->feed.M[i];
+	}
 }
 
 
@@ -48,7 +50,7 @@ double CUnit::rel_tol_calc()
 
 	for (int i = 0; i < 2; i++)
 	{
-		rel_tol[i] = abs(this->feed.M[i] - this->feed_old.M[i]) / this->feed_old.M[i];
+		rel_tol[i] = fabs((this->feed.M[i] - this->feed_old.M[i]) / this->feed_old.M[i]);
 	}
 
 	return (rel_tol[0] > rel_tol[1] ? rel_tol[0] : rel_tol[1]);
