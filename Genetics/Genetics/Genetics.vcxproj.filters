@@ -21,10 +21,13 @@
     <ClInclude Include="CStream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="Circuit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Circuit.h">
+    <ClInclude Include="Validity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Genetic_Algorithm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +50,7 @@
     <ClCompile Include="Circuit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Example.cpp">
+    <ClCompile Include="TestGA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

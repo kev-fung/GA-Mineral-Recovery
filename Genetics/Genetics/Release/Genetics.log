@@ -1,24 +1,9 @@
-﻿  Genetic_Algorithm.cpp
-c:\users\laura su\source\repos\genetics\genetics\genetic_algorithm.cpp(35): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-c:\users\laura su\source\repos\genetics\genetics\genetic_algorithm.cpp(38): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-c:\users\laura su\source\repos\genetics\genetics\genetic_algorithm.cpp(51): warning C4244: '+=': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-c:\users\laura su\source\repos\genetics\genetics\genetic_algorithm.cpp(8): warning C4101: 'num1': unreferenced local variable
-c:\users\laura su\source\repos\genetics\genetics\genetic_algorithm.cpp(8): warning C4101: 'num0': unreferenced local variable
+﻿  TestGA.cpp
+c:\users\kevin fung\desktop\acse4_gold\acse-4-project-3-gold\genetics\genetics\testga.cpp(28): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\kevin fung\desktop\acse4_gold\acse-4-project-3-gold\genetics\genetics\testga.cpp(43): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
   Generating code
-  2 of 444 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+  1 of 310 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  Genetics.vcxproj -> C:\Users\Laura Su\source\repos\Genetics\Release\Genetics.exe
+  Genetics.vcxproj -> C:\Users\Kevin Fung\Desktop\ACSE4_Gold\acse-4-project-3-gold\Genetics\Release\Genetics.exe
