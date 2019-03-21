@@ -7,18 +7,22 @@ CUnit::CUnit()
 {}
 
 
-CUnit::CUnit(int id, int conc_num, int tail_num, vector<double> fraction) :id(id), conc_id(conc_num), tail_id(tail_num) {
+CUnit::CUnit(int id, int conc_num, int tail_num, vector<double> fraction, vector<double> circuit_feed) :id(id), conc_id(conc_num), tail_id(tail_num) 
+{
 	num_components = fraction.size();
 	this->conc_frac.resize(num_components);
+	vector<double> temp(num_components);
+
 	for (int i = 0; i < num_components; i++)
 	{
 		this->conc_frac[i] = fraction[i];
+		temp[i] = 0;
 	}
 
-	/*feed()
-	feed_old.M.resize(num_components);
-	tail.M.resize(num_components);
-	conc.M.resize(num_components);*/
+	feed = CStream(temp);
+	feed_old = CStream(temp);
+	tail = CStream(temp);
+	conc = CStream(temp);
 }
 
 

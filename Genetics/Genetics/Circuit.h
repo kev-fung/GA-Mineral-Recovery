@@ -23,7 +23,7 @@ private:
 	double max_rel_tol;						// Maximum relative tolerance of feeds
 	int conc_ID;							// Concentration unit index in unit_lists
 	int tail_ID;							// Tails unit index in unit_lists
-	vector<double> total_amount;				// Total valuables and waste in final concentration stream 
+	vector<double> total_amount;			// Total valuables and waste in final concentration stream 
 	double fitness;							// Performance metric of the circuit
 
 	CUnit* unit_list;						// Dynamic array of units

@@ -120,14 +120,11 @@ double tol = 1e-6;
 int max_iterations = 2000;
 
 
-<<<<<<< HEAD
-=======
 // Get the time.
 double wTime()
 {
 	return (double)clock() / CLOCKS_PER_SEC;
 }
->>>>>>> ea319b4088e8a04b0080c18a2c85a2cebbf540ed
 
 
 int main() {
@@ -147,11 +144,8 @@ int main() {
 	// Random seed
 	srand(time(NULL));
 
-
-
 	//The timing starts here.
 	double tdif = -wTime();
-
 
 
 	// Circuit and list of circuits
@@ -174,12 +168,7 @@ int main() {
 
 	// List of fitness values
 	vector<double> fitVec(numCircuits, 0);
-<<<<<<< HEAD
-		
-=======
 
-
->>>>>>> ea319b4088e8a04b0080c18a2c85a2cebbf540ed
 	// Generating the parents
 	cout << "Generating parents" << endl;
 	for (int i = 0; i < numCircuits; i++) {
@@ -189,13 +178,10 @@ int main() {
 		Circuit circ(num_components, flow, prices);
 
 		circuits[i] = circuit;
-<<<<<<< HEAD
+
 		fitVec[i] = circ.Evaluate_Circuit(circuit, tol, max_iterations, fraction);
 	
-=======
-		fitVec[i] = circ.Evaluate_Circuit(circuit, tol, max_iterations);
 
->>>>>>> ea319b4088e8a04b0080c18a2c85a2cebbf540ed
 		// Reinitialise the vector with 0
 		for (int j = 0; j < sizeVec; j++) {
 			circuit[j] = 0;

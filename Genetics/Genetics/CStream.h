@@ -7,7 +7,8 @@ class CStream {
 public:
 	// Constructors
 	CStream();										// Default sets masses to 0
-	CStream(vector<double> mass_sec);					// Specify own mass flows
+	CStream(int size);								// Specify size of M
+	CStream(vector<double> mass_sec);				// Specify own mass flows
 	~CStream();
 
 	// Methods

@@ -9,7 +9,7 @@ class CUnit {
 public:
 	// Constructors:
 	CUnit();
-	CUnit(int id, int conc_num, int tail_num, vector<double> fraction);
+	CUnit(int id, int conc_num, int tail_num, vector<double> fraction, vector<double> feed);
 	~CUnit();
 
 	// Methods:
@@ -25,7 +25,7 @@ public:
 	int num_components;		// Number of components in flow
 
 	vector<double> conc_frac;	// conc_frac[0] : valuable frac, conc_frac[1:n] : waste frac in concentrate stream
-
+	
 	CStream feed_old, feed;
 	CStream tail, conc;			// Stored output streams to tail and concentration units.
 

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Circuit::Circuit(int num_components, vector<double> feed, vector<double> prices) : num_components(num_components)
+Circuit::Circuit(int num_components, vector<double> feed, vector<double> prices) : num_components(num_components), iter(0), rtol(1e9)
 {
 	this->circuit_feed.resize(feed.size());
 	this->price.resize(prices.size());
@@ -15,12 +15,6 @@ Circuit::Circuit(int num_components, vector<double> feed, vector<double> prices)
 		this->price[i] = prices[i];
 	}
 }
-
-//Circuit::Circuit(double vprice, double wastec, double conc_feed, double tails_feed) : valuable_price(vprice), waste_cost(wastec), iter(0), rtol(1e9)
-//{
-//	this->circuit_feed[0] = conc_feed;
-//	this->circuit_feed[1] = tails_feed;
-//}
 
 Circuit::~Circuit() {
 	delete[] unit_list;
@@ -46,7 +40,7 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 
 	// Fill up our unit_list (vector of unit objects) from circuit_vector:
 	for (int i = 0; i < num_units; i++) {
-		CUnit unit(i, circuit_vector[(2 * i) + 1], circuit_vector[(2 * i) + 2], fraction);
+		CUnit unit(i, circuit_vector[(2 * i) + 1], circuit_vector[(2 * i) + 2], fraction, circuit_feed);
 		unit_list[i] = unit;
 
 		unit_list[i].feed = CStream(circuit_feed);		// Initialise all unit feeds with circuit feed
@@ -55,8 +49,8 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 	// Insert conc bin and tail bin
 	unit_list[num_units];
 	unit_list[num_units + 1];
-	unit_list[num_units].feed = CStream();				// Final concentration stream
-	unit_list[num_units + 1].feed = CStream();			// Final tail stream 
+	unit_list[num_units].feed = CStream(num_components);				// Final concentration stream
+	unit_list[num_units + 1].feed = CStream(num_components);			// Final tail stream 
 
 	while (rtol > tolerance && iter < max_iter)			// while relative difference is more than specified tolerance
 	{

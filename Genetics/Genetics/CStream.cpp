@@ -4,10 +4,15 @@
 using namespace std;
 
 CStream::CStream() {
-	for (int i = 0; i < M.size(); i++)
-		M[i] = 0.0;
+
 }
 
+CStream::CStream(int size) 
+{
+	M.resize(size);
+	for (int i = 0; i < size; i++)
+		M[i] = 0.0;
+}
 
 CStream::~CStream()
 {}
@@ -36,7 +41,7 @@ CStream &CStream::operator+=(const CStream &other) {
 
 
 CStream CStream::operator*(vector<double> frac) {
-	CStream newstream;
+	CStream newstream = CStream(frac.size());
 	for (int i = 0; i < M.size(); i++)
 		newstream.M[i] = M[i] * frac[i];
 	return newstream;
@@ -44,7 +49,7 @@ CStream CStream::operator*(vector<double> frac) {
 
 
 CStream CStream::operator-(const CStream & other) {
-	CStream newstream;
+	CStream newstream = CStream(other.M.size());
 	for (int i = 0; i < M.size(); i++)
 		newstream.M[i] = M[i] - other.M[i];
 	return newstream;
