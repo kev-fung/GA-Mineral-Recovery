@@ -1,8 +1,8 @@
 CXX = g++
-CXXFLAGS = -Wall
+CXXFLAGS = -Wall -std=c++11
 LDFLAGS =
-SOURCE_DIR = src
-INCLUDE_DIR = includes
+SOURCE_DIR = Genetics/Genetics
+INCLUDE_DIR = Genetics/Genetics
 TEST_DIR = tests
 
 BUILD_DIR = build
@@ -13,11 +13,11 @@ TEST_BUILD_DIR = $(TEST_DIR)/build
 TEST_BIN_DIR = $(TEST_DIR)/bin
 ALL_TEST_BUILD_DIR = $(TEST_BUILD_DIR) $(TEST_BIN_DIR)
 
-all: geneticAlgo
+all: Genetic_Algorithm
 
-geneticAlgo: $(BIN_DIR)/geneticAlgo
+Genetic_Algorithm: $(BIN_DIR)/Genetic_Algorithm
 
-$(BIN_DIR)/geneticAlgo: $(BUILD_DIR)/geneticAlgo.o
+$(BIN_DIR)/Genetic_Algorithm: $(BUILD_DIR)/Genetic_Algorithm.o $(BUILD_DIR)/Circuit.o $(BUILD_DIR)/main.o $(BUILD_DIR)/CUnit.o $(BUILD_DIR)/CStream.o $(BUILD_DIR)/verification.o $(BUILD_DIR)/Performance.o
 	$(CXX) -o $@ $^
 
 $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.cpp $(INCLUDE_DIR)/*.h | directories
@@ -26,18 +26,33 @@ $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.cpp $(INCLUDE_DIR)/*.h | directories
 clean:
 	rm -f $(BUILD_DIR)/* $(BIN_DIR)/*
 
-.PHONY: geneticAlgo all clean
+.PHONY: Genetic_Algorithm all clean
 
-TESTS = test_genetic
+TESTS = test1 test_verification
 
 runtests: ${TESTS}
 	@python3 run_tests.py
 
 tests: ${TESTS}
 
+test1: $(TEST_BIN_DIR)/test1
+
+test_verification: $(TEST_BIN_DIR)/test_verification
+
 test_genetic: $(TEST_BIN_DIR)/test_genetic
 
-$(TEST_BIN_DIR)/test_genetic: $(TEST_BUILD_DIR)/test_genetic.o $(BUILD_DIR)/geneticAlgo.o
+test_circuit: $(TEST_BIN_DIR)/test_circuit
+
+$(TEST_BIN_DIR)/test1: $(TEST_BUILD_DIR)/test1.o $(BUILD_DIR)/Genetic_Algorithm.o $(BUILD_DIR)/CUnit.o $(BUILD_DIR)/CStream.o $(BUILD_DIR)/CCircuit.o $(BUILD_DIR)/verification.o $(BUILD_DIR)/Performance.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
+
+$(TEST_BIN_DIR)/test_verification: $(TEST_BUILD_DIR)/test_verification.o $(BUILD_DIR)/Genetic_Algorithm.o $(BUILD_DIR)/CUnit.o $(BUILD_DIR)/CStream.o $(BUILD_DIR)/CCircuit.o $(BUILD_DIR)/verification.o $(BUILD_DIR)/Performance.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
+
+$(TEST_BIN_DIR)/test_genetic: $(TEST_BUILD_DIR)/test_genetic.o $(BUILD_DIR)/Genetic_Algorithm.o $(BUILD_DIR)/CUnit.o $(BUILD_DIR)/CStream.o $(BUILD_DIR)/CCircuit.o $(BUILD_DIR)/verification.o $(BUILD_DIR)/Performance.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
+
+$(TEST_BIN_DIR)/test_circuit: $(TEST_BUILD_DIR)/test_circuit.o $(BUILD_DIR)/Circuit.o $(BUILD_DIR)/CUnit.o $(BUILD_DIR)/CStream.o
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 $(TEST_BUILD_DIR)/%.o: $(TEST_DIR)/%.cpp $(INCLUDE_DIR)/*.h | test_directories

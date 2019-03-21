@@ -122,7 +122,7 @@ void geneticAlgo(vector<vector<int>> &circuits, vector<double> fitVec, int maxIt
 
     	// Do the mutation.
     	int randInt;
-    	int stepSize =3;
+    	int stepSize = 3;
     	num0 = ((double) rand() / (RAND_MAX));
 
 		// Mutate the feed.

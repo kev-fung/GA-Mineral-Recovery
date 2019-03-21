@@ -4,14 +4,29 @@
 using namespace std;
 
 
+const int num_units = 10;
+int sizeVec = 2 * num_units + 1;
+
+// parameters for the Evaluate_Circuit function
+double tol = 1e-6;
+int max_iterations = 2000;
+
+
 int main() {
-	int numCircuits = 100; // TO TUNE
-	int maxIte = 10000;
+	int numCircuits = 100;  // TO TUNE
+	int maxIte = 15000;
 
-	// parameters for the Evaluate_Circuit function
-	double tol = 1e-6;
-	int max_iterations = 2000;
+	// Inputs for convergence
+	int bestIndCnt = 1000; // Minimum naumber of iterations for the best circuit to be the same.
+	int minIte = 10000; // minimum number of iterations to be done
+	int maxIte = 15000; // maximum number of iterations possible
 
+
+	// Genetic algorithm parameters.
+	double proCrosOver = 0.2;  // Probability of cross-over.
+	double proMut = 0.01;  // Probability of mutation.
+
+	
 	// random seed
 	srand(time(NULL));
 
@@ -56,7 +71,7 @@ int main() {
 	vector<int> best_circuit;
 	// Genetic algorithm
 	//cout << "Genetic algorithm" << endl;
-	best_circuit = geneticAlgo(circuits, fitVec, maxIte, tol, max_iterations);
+	best_circuit = geneticAlgo(circuits, fitVec, minIte, maxIte, proCrosOver, proMut);
 	//cout << endl;
 
 	// Print the output.
@@ -72,5 +87,5 @@ int main() {
 	cout << endl;
 	
 
-	system("pause");
+	//system("pause");
 }

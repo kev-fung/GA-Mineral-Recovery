@@ -2,8 +2,6 @@
 #include "Circuit.h"
 
 // Number of units, only has to be defined once
-const int num_units = 10;
-int sizeVec = 2 * num_units + 1;
 
 void generateCircuit(vector<int> &vals) {
 	// Set the feed.
@@ -14,62 +12,68 @@ void generateCircuit(vector<int> &vals) {
 }
 
 
-vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, int iter, double tol, int max_iterations) {
-	int num0, num1, cnt;
+vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, int minIte, int maxIte, int bestIndCnt, double proCrosOver, double proMut) {
+	int cnt;
+	int sizeCirc = circuits[0].size();   // size of the vector of int
+	int numCircuits = circuits.size();   // number of circuits
 
-	int sizeCirc = circuits[0].size(); // size of the vector of int
-	int numCircuits = circuits.size(); // number of circuits
-
+    // Initialise vector that will contain the next generation circuits.
 	vector<vector<int>> children(numCircuits, vector<int>(sizeCirc, 0));
 
 	vector<int> circuit0(sizeCirc, 0);
 	vector<int> circuit1(sizeCirc, 0);
 
 	int it = 0;
-	
-	int criterium = 1000;
-
 	double min;
 	double max;
-	
 	int indmax; 
-	int cnt_indmax = 0; // keeping track if the best vector is still the first vector of the list 
+	int cnt_indmax = 0; // keeping track if the best vector is still the first vector of the list.
 
-
+	
 	vector<int> best_parent(sizeCirc, 0);
 	vector<int> best_child(sizeCirc, 0);
 	
-	while(it < iter && cnt_indmax < criterium) {
+
+	
+	while(it<maxIte)
+	{
 		// Keep track of the children.
 		cnt = 0;
+
 
 		// To get the max and min values of fitness
 		min = fitVec[0];
 		max = fitVec[0];
 
+
 		// Index of the best vector
 		indmax = 0;
 
+
 		// The best goes on unchanged.
-		for (int i = 1; i < numCircuits; i++) {
-			if (fitVec[i] > max) {
+		for (int i = 1; i < numCircuits; i++)
+		{
+			if (fitVec[i] > max) 
+			{
 				max = fitVec[i];
 				indmax = i;
 			}
-			if (fitVec[i] < min) min = fitVec[i];
+			if (fitVec[i]<min) min=fitVec[i];
 		}
 		cnt++;
 
+
 		// Check if indmax has not changed (i.e. the first vector is the best and still the same)
-		if (indmax == 0) {
+		if (it>minIte && indmax == 0) {
 			cnt_indmax++;
+			if (cnt_indmax>bestIndCnt) break;
 		}
 		else {
 			cnt_indmax = 0;
 		}
 
 		children[0] = circuits[indmax];
-		
+
 		
 		cout << "best parent: " << endl;
 		for (int i = 0; i < sizeVec; i++) {
@@ -107,9 +111,11 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 				}
 			}
 
+
+
 			// Do the cross-over.
 			num0 = ((double)rand() / (RAND_MAX)); // cross-over probability
-			if (num0 > 0.8 && num0 < 1) { // TO TUNE
+			if (num0>=0 && num0<proCrosOver) { // TO TUNE
 				// Select a random point in the vector.
 				int pivot = rand() % (sizeCirc - 1) + 1;
 
@@ -136,7 +142,7 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 			num0 = ((double)rand() / (RAND_MAX)); // mutation probability
 
 			// Mutate the feed.
-			if (num0 >= 0 && num0 < 0.01) { // TO TUNE
+			if (num0 >= 0 && num0 < proMut ) { // TO TUNE
 				randInt = rand() % stepSize + 1;
 				circuit0[0] = (circuit0[0] + randInt) % num_units;
 				randInt = rand() % stepSize + 1;
@@ -146,7 +152,7 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 			for (int i = 1; i < sizeCirc; i++) {
 				num0 = ((double)rand() / (RAND_MAX)); // mutation probability
 				
-				if (num0 >= 0 && num0 < 0.01) { // TO TUNE
+				if (num0 >= 0 && num0 < proMut) { // TO TUNE
 					randInt = rand() % stepSize + 1;
 					circuit0[i] = (circuit0[i] + randInt) % (num_units + 2);
 					randInt = rand() % stepSize + 1;
@@ -170,12 +176,6 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 		for (int i = 0; i < numCircuits; i++) {
 			circuits[i] = children[i];
 
-			/*cout << "first child " << endl;
-			for (int j = 0; j < sizeVec; j++) {
-				cout << circuits[0][j] << " ";
-			}*/
-			
-			assert(circuits[i] == children[i]);
 
 			// Compute the new fitness
 			Circuit circ(100.0, -500.0, 10, 100); // rebuilding the object
@@ -202,7 +202,7 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 		cout << endl;
 
 		it++;
-		cout << it << endl;
+		cout << "Number of iterations: " << it << endl;
 		cout << endl << endl;
 	}  // end of the while loop on the iterations.
 
