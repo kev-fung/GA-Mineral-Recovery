@@ -30,6 +30,7 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 	num_units = (circuit_vector.size() - 1) / 2;		// Number of units
 	unit_list = new CUnit[num_units + 2];
 
+	int feed_id = circuit_vector[0];					// Save id of feed unit
 
 	// Fill up our unit_list (vector of unit objects) from circuit_vector:
 	for (int i = 0; i < num_units; i++)
@@ -54,14 +55,13 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 			unit_list[i].output_con_tail();
 		}
 
-		// Store current feed into old feed and reset feeds to zero!
-		unit_list[0].store_feed();
-		unit_list[0].feed.set_stream(circuit_feed);		// [10, 100]
-		for (int i = 1; i < num_units + 2; i++)			// INCLUDING END STREAMS!
+		// Store current feed into old feed and reset feeds to zero!		
+		for (int i = 0; i < num_units + 2; i++)			// INCLUDING END STREAMS!
 		{
 			unit_list[i].store_feed();
 			unit_list[i].feed.reset_stream();			// [0, 0]
 		}
+		unit_list[feed_id].feed.set_stream(circuit_feed);		// [10, 100]
 
 		// Send the Tail and Conc streams to their destination units!
 		for (int i = 0; i < num_units; i++)
