@@ -15,6 +15,11 @@ public:
 	void output_file();
 	double wTime();
 
+	// Public Variables:
+	std::vector<std::vector<int>> circuits;
+	int it;
+	double tdif = 0;
+
 private:
 
 	// Number of units and size of the vector
@@ -32,13 +37,11 @@ private:
 	// Circuit and list of circuits
 	int numCircuits;
 	std::vector<int> circuit;
-	std::vector<std::vector<int>> circuits;
 	std::vector<double> fitVec;			// List of fitness values
 
 	
 	// Timing
 	bool timeGA;
-	double tdif = 0;
 };
 
 
