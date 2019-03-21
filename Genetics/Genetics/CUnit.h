@@ -5,7 +5,6 @@
 
 class CUnit {
 public:
-
 	// Constructors:
 	CUnit();
 	CUnit(int id, int conc_num, int tail_num);
