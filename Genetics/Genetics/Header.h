@@ -17,6 +17,8 @@ extern int sizeVec;
 extern double tol; 
 extern int max_iterations;
 
+void mark_units(int unit_num);
+
 bool Check_Validity(vector<int> circuit_vector);
 
 vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, 

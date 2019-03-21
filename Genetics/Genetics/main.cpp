@@ -1,5 +1,7 @@
 #include "Header.h"
 #include "Circuit.h"
+#include <time.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -118,22 +120,39 @@ double tol = 1e-6;
 int max_iterations = 2000;
 
 
+<<<<<<< HEAD
+=======
+// Get the time.
+double wTime()
+{
+	return (double)clock() / CLOCKS_PER_SEC;
+}
+>>>>>>> ea319b4088e8a04b0080c18a2c85a2cebbf540ed
 
 
 int main() {
 	int numCircuits = 100;  // TO TUNE
 
-	// Inputs for convergence
-	int bestIndCnt = 1000; // Minimum number of iterations for the best circuit to be the same
-	int minIte = 10000; // Minimum number of iterations to be done
-	int maxIte = 15000; // Maximum number of iterations possible
+
+	// Inputs for convergence of the genetic algo.
+	int bestIndCnt = 3000; // Minimum number of iterations for the best circuit to be the same
+	int minIte = 0; // Minimum number of iterations to be done
+	int maxIte = 10000; // Maximum number of iterations possible
+
 
 	// Genetic algorithm parameters.
-	double proCrosOver = 0.2;  // Probability of cross-over.
-	double proMut = 0.01;  // Probability of mutation.
+	double proCrosOver = 1.;  // Probability of cross-over.
+	double proMut = 0.004;  // Probability of mutation.
 
 	// Random seed
 	srand(time(NULL));
+
+
+
+	//The timing starts here.
+	double tdif = -wTime();
+
+
 
 	// Circuit and list of circuits
 	vector<int> circuit(sizeVec, 0);
@@ -155,18 +174,28 @@ int main() {
 
 	// List of fitness values
 	vector<double> fitVec(numCircuits, 0);
+<<<<<<< HEAD
 		
+=======
+
+
+>>>>>>> ea319b4088e8a04b0080c18a2c85a2cebbf540ed
 	// Generating the parents
 	cout << "Generating parents" << endl;
 	for (int i = 0; i < numCircuits; i++) {
-		while(!Check_Validity(circuit)){  
+		while (!Check_Validity(circuit)) {
 			generateCircuit(circuit);
 		}
 		Circuit circ(num_components, flow, prices);
 
 		circuits[i] = circuit;
+<<<<<<< HEAD
 		fitVec[i] = circ.Evaluate_Circuit(circuit, tol, max_iterations, fraction);
 	
+=======
+		fitVec[i] = circ.Evaluate_Circuit(circuit, tol, max_iterations);
+
+>>>>>>> ea319b4088e8a04b0080c18a2c85a2cebbf540ed
 		// Reinitialise the vector with 0
 		for (int j = 0; j < sizeVec; j++) {
 			circuit[j] = 0;
@@ -175,15 +204,15 @@ int main() {
 	cout << endl;
 
 
-	// Check the vectors.
-	cout << "Input Vectors" << endl;
-	for (int i = 0; i < numCircuits; i++) {
-		for (int j = 0; j < sizeVec; j++) {
-			cout << circuits[i][j] << " ";
-		}
-		cout << " Fitness: " << fitVec[i] << endl;
-	}
-	cout << endl;
+	 // Check the vectors.
+	 cout << "Input Vectors" << endl;
+	 for (int i = 0; i < numCircuits; i++) {
+	 	for (int j = 0; j < sizeVec; j++) {
+	 		cout << circuits[i][j] << " ";
+	 	}
+	 	cout << " Fitness: " << fitVec[i] << endl;
+	 }
+	 cout << endl;
 
 
 	vector<int> best_circuit;
@@ -202,7 +231,15 @@ int main() {
 	best_fitness = circ.Evaluate_Circuit(best_circuit, tol, max_iterations, fraction);
 	cout << "Fitness: " << best_fitness;
 	cout << endl;
-	
+
+
+
+	// Timing.
+	tdif += wTime();
+	cout << setprecision(5);
+	cout << endl << "Time of execution = " << tdif << "s." << endl << endl;
+
+
 
 	system("pause");
 }

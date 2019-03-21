@@ -1,2 +1,9 @@
+<<<<<<< HEAD
 ﻿  CUnit.cpp
   Genetics.vcxproj -> C:\Users\Deirdree\Documents\ACSE_Stuff\acse-4-project-3-gold\Genetics\Debug\Genetics.exe
+=======
+﻿  Validity.cpp
+c:\users\laura su\acse-4-project-3-gold\genetics\genetics\validity.cpp(92): warning C4018: '<': signed/unsigned mismatch
+c:\users\laura su\acse-4-project-3-gold\genetics\genetics\validity.cpp(100): warning C4018: '<': signed/unsigned mismatch
+  Genetics.vcxproj -> C:\Users\Laura Su\acse-4-project-3-gold\Genetics\Debug\Genetics.exe
+>>>>>>> ea319b4088e8a04b0080c18a2c85a2cebbf540ed
