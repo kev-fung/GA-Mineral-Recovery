@@ -1,9 +1,11 @@
 #pragma once
-#include "Header.h"
 #include "CStream.h"
+<<<<<<< HEAD
 #include <vector>
 
 using namespace std;
+=======
+>>>>>>> b76119a5f405708dd024613499203c4e8b515a24
 
 class CUnit {
 public:

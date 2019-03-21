@@ -21,8 +21,8 @@ private:
 	double waste_cost;						// Cost of waste material
 	int iter;								// Iteration
 	double rtol;							// While loop condition: relative tolerance of feeds
-	double rel_tol;							// Relative tolerance of feeds
-	double max_rel_tol;						// Maximum relative tolerance of feeds
+	//double rel_tol;						// Relative tolerance of feeds
+	//double max_rel_tol;					// Maximum relative tolerance of feeds
 	int conc_ID;							// Concentration unit index in unit_lists
 	int tail_ID;							// Tails unit index in unit_lists
 	double tot_valuable;					// Total valuables in final concentration stream 

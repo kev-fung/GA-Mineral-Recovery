@@ -9,13 +9,14 @@ public:
 	// Constructors:
 	CUnit();
 	CUnit(int id, int conc_num, int tail_num);
+	CUnit(int id, int conc_num, int tail_num, double conc_percentage, double waste_percentage);
 	~CUnit();
 
 	// Methods:
 	void output_con_tail();
 	void send_stream(CUnit & unit, CStream & stream);
 	void store_feed();
-	double rel_tol_calc();
+	double* rel_tol_calc();
 
 	// Variables:
 	int id;						// Unit ID
