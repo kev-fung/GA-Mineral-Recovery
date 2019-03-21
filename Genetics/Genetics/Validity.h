@@ -16,8 +16,8 @@ private:
 	int num_units;
 	int sizeVec;
 
-	//int *units;
-	std::vector<CUnit> units;
+	int *units;
+	//std::vector<CUnit> units;
 
 	int feed_num;
 	bool seen_conc;

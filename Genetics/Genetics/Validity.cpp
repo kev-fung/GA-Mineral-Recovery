@@ -7,34 +7,37 @@ using namespace std;
 
 Validity::Validity(int nunits, int sVec) : num_units(nunits), sizeVec(sVec)
 {
+	units = new int[nunits * 3];
+	for (int i = 0; i < nunits * 3; i++) units[i] = 0;
 }
 
 
 Validity::~Validity()
 {
+	delete[] units;
 }
 
 
 void Validity::mark_units(int unit_num) {
-	if (units[unit_num].mark) return;		// This unit has already been seen
-	units[unit_num].mark = true;		// Mark that we have now seen the unit
+	if (units[unit_num*3 + 2] == 1) return;			// This unit has already been seen
+	units[unit_num*3 + 2] = 1;						// Mark that we have now seen the unit
 
 	// If conc_num does not point at a circuit outlet recursively call the function
 	int counter = 0;
-	if (units[unit_num].conc_id < num_units) {
-		mark_units(units[unit_num].conc_id);
+	if (units[unit_num*3 + 0] < num_units) {
+		mark_units(units[unit_num*3 + 0]);
 	}
 	else {
-		if (units[unit_num].conc_id == num_units) seen_conc = true;
+		if (units[unit_num*3 + 0] == num_units) seen_conc = true;
 		else seen_tail = true;
 	}
 
 	// If tails_num does not point at a circuit outlet recursively call the function
-	if (units[unit_num].tail_id < num_units && counter <= 50)
-		mark_units(units[unit_num].tail_id);
+	if (units[unit_num*3 + 1] < num_units && counter <= 50)
+		mark_units(units[unit_num*3 + 1]);
 
 	else {
-		if (units[unit_num].tail_id == num_units+1) seen_tail = true;
+		if (units[unit_num*3 + 1] == num_units + 1) seen_tail = true;
 		else seen_conc = true;
 	}
 }
@@ -55,25 +58,26 @@ bool Validity::Check_Validity(vector<int> circuit_vector) {
 	  False  otherwise.
 	*/
 
-	units.resize(num_units);
+	//units.resize(num_units);
 
 	// Convert vector index to unit number
 	for (int i = 0; i < num_units; i++) {
-		units[i].conc_id = circuit_vector[i * 2 + 1];
-		units[i].tail_id = circuit_vector[i * 2 + 2];
+		units[i * 3 + 0] = circuit_vector[i * 2 + 1];
+		units[i * 3 + 1] = circuit_vector[i * 2 + 2];
 	}
 
 	feed_num = circuit_vector[0];
 
 	// Check if all units can see the feed
 	for (int i = 0; i < num_units; i++) {
-		units[i].mark = false;
+		units[i * 3 + 2] = 0;
+		//units[i].mark = false;
 	}
 
 	mark_units(feed_num);
 
 	for (int i = 0; i < num_units; i++) {
-		if (!units[i].mark) {
+		if (units[i*3 + 2] == 0) {
 			return false;
 		}
 	}
@@ -81,7 +85,7 @@ bool Validity::Check_Validity(vector<int> circuit_vector) {
 	// Check if exits can be seen
 	for (int j = 0; j < num_units; j++) {
 		for (int i = 0; i < num_units; i++) {
-			units[i].mark = false;
+			units[i*3 + 2] = 0;
 		}
 		seen_conc = false;
 		seen_tail = false;
@@ -108,5 +112,6 @@ bool Validity::Check_Validity(vector<int> circuit_vector) {
 			return false;
 		}
 	}
+
 	return true;
 }
