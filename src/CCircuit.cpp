@@ -6,7 +6,7 @@
 
 std::vector<CUnit> units(num_units);
 
-bool Check_Validity(int *circuit_vector)
+bool Check_Validity(vector<int> circuit_vector)
 {
 
   return true;
