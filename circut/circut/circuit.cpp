@@ -17,7 +17,7 @@ Circuit::~Circuit()
 	delete[] unit_list;
 }
 
-Circuit::Circuit() : valuable_price(100.), waste_cost(500.), iter(0), rtol(1e9)
+Circuit::Circuit() : valuable_price(100.), waste_cost(-500.), iter(0), rtol(1e9)
 {
 	this->circuit_feed[0] = 10;
 	this->circuit_feed[1] = 100;
@@ -38,14 +38,17 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 
 		unit_list[i].feed = CStream(circuit_feed);		// Initialise all unit feeds with circuit feed
 	}
-
 	// Insert conc bin and tail bin
 	unit_list[num_units];
 	unit_list[num_units + 1];
 	unit_list[num_units].feed = CStream();				// Final concentration stream
 	unit_list[num_units + 1].feed = CStream();			// Final tail stream 
 
-	while (rtol > tolerance && iter < max_iter)			// while relative difference is more than specified tolerance
+	double *rrtol = new double[2];
+	rrtol[0] = 1e9;
+	rrtol[1] = 1e9;
+
+	while ((rrtol[0] > tolerance || rrtol[1] > tolerance) && iter < max_iter)			// while relative difference is more than specified tolerance
 	{
 		// Calculate Tail and Conc streams of all units for this time step!
 		for (int i = 0; i < num_units; i++)
@@ -72,17 +75,40 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 		}
 
 		// Work out the relative tolerances!
-		max_rel_tol = -1e9;
+		//max_rel_tol = -1e9;
+		double *max_rel_tol = new double[2];
+		max_rel_tol[0] = -1e9;
+		max_rel_tol[1] = -1e9;
+
 		for (int i = 0; i < num_units; i++)
 		{
+			double *rel_tol;
+
 			rel_tol = unit_list[i].rel_tol_calc();
-			if (rel_tol > max_rel_tol)
+			
+			for (int i = 0; i < 2; i++)
 			{
-				max_rel_tol = rel_tol;
+				if (rel_tol[i] > max_rel_tol[i])
+				{
+					max_rel_tol[i] = rel_tol[i];
+				}
 			}
+
+			delete[] rel_tol;
 		}
 
-		rtol = max_rel_tol;
+		rrtol[0] = max_rel_tol[0];
+		rrtol[1] = max_rel_tol[1];
+
+/*
+		for (int i = 0; i < 2; i++)
+		{
+			if (max_rel_tol[i] > rtol)
+			{
+				rtol = max_rel_tol[i];
+			}
+		}*/
+		//if (iter == 0) break;
 		iter++;
 	}
 
@@ -95,7 +121,7 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 	tot_valuable = unit_list[num_units].feed.M[0];
 	tot_waste = unit_list[num_units].feed.M[1];
 
-	fitness = (tot_valuable*valuable_price) - (tot_waste*waste_cost);
+	fitness = (tot_valuable*valuable_price) + (tot_waste*waste_cost);
 
 	return fitness;
 }
