@@ -1,6 +1,6 @@
 #include "CStream.h"
 #include "CUnit.h"
-#include "Header.h"
+#include <cmath>
 
 
 CUnit::CUnit()

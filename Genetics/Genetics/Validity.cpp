@@ -1,17 +1,23 @@
-#include "Header.h"
+#include "Validity.h"
 #include "CUnit.h"
+#include <vector>
+
+using namespace std;
 
 
-vector<CUnit> units;
-
-int feed_num;
-bool seen_conc;
-bool seen_tail;
+Validity::Validity(int nunits, int sVec) : num_units(nunits), sizeVec(sVec)
+{
+}
 
 
-void mark_units(int unit_num) {
-	if (units[unit_num].mark) return; // This unit has already been seen
-	units[unit_num].mark = true; // Mark that we have now seen the unit
+Validity::~Validity()
+{
+}
+
+
+void Validity::mark_units(int unit_num) {
+	if (units[unit_num].mark) return;		// This unit has already been seen
+	units[unit_num].mark = true;		// Mark that we have now seen the unit
 
 	// If conc_num does not point at a circuit outlet recursively call the function
 	int counter = 0;
@@ -34,7 +40,7 @@ void mark_units(int unit_num) {
 }
 
 
-bool Check_Validity(vector<int> circuit_vector) {
+bool Validity::Check_Validity(vector<int> circuit_vector) {
 	/*
 	Checks:
 	//-----

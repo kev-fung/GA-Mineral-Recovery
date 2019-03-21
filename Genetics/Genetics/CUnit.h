@@ -1,7 +1,5 @@
 #pragma once
-#include "Header.h"
 #include "CStream.h"
-#include "vector"
 
 class CUnit {
 public:
