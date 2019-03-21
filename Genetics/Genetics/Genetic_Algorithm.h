@@ -12,6 +12,7 @@ public:
 	void generateCircuit(std::vector<int> &vals);
 	std::vector<int> geneticAlgo(int minIte, int maxIte, int bestIndCnt, Validity &val);
 	std::vector<int> runAlgo(int bestIndCnt, int minIte, int maxIte);
+	void output_file();
 	double wTime();
 
 private:

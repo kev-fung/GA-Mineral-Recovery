@@ -7,6 +7,9 @@
 #include <iostream>
 #include <cmath>
 #include <stdlib.h>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -305,3 +308,23 @@ vector<int> Genetic_Algorithm::runAlgo(int bestIndCnt, int minIte, int maxIte)
 
 	return best_circuit;
 }
+
+//void Genetic_Algorithm::output_file(string name, )
+//{
+//
+//	stringstream fname;
+//	fstream f1;
+//
+//	fname << name << ".csv";
+//
+//	f1.open(fname.str().c_str(), ios_base::out);
+//
+//	for (int i = 1; i < id_ysize + 1; i++)
+//	{
+//		for (int j = 1; j < id_xsize + 1; j++)
+//			f1 << grid[i][j] << ",";
+//		f1 << endl;
+//	}
+//	
+//	f1.close();
+//}
