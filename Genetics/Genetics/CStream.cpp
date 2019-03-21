@@ -17,8 +17,7 @@ CStream::CStream(double mass_sec[2]) {
 }
 
 
-CStream CStream::operator+(const CStream &other)
-{
+CStream CStream::operator+(const CStream &other) {
 	CStream newstream;
 	for (int i = 0; i < 2; i++)
 		newstream.M[i] = M[i] + other.M[i];
@@ -26,16 +25,14 @@ CStream CStream::operator+(const CStream &other)
 }
 
 
-CStream &CStream::operator+=(const CStream &other)
-{
+CStream &CStream::operator+=(const CStream &other) {
 	for (int i = 0; i < 2; i++)
 		this->M[i] += other.M[i];
 	return *this;
 }
 
 
-CStream CStream::operator*(double frac[2])
-{
+CStream CStream::operator*(double frac[2]) {
 	CStream newstream;
 	for (int i = 0; i < 2; i++)
 		newstream.M[i] = M[i] * frac[i];
@@ -43,8 +40,7 @@ CStream CStream::operator*(double frac[2])
 }
 
 
-CStream CStream::operator-(const CStream & other)
-{
+CStream CStream::operator-(const CStream & other) {
 	CStream newstream;
 	for (int i = 0; i < 2; i++)
 		newstream.M[i] = M[i] - other.M[i];
@@ -52,15 +48,13 @@ CStream CStream::operator-(const CStream & other)
 }
 
 
-void CStream::reset_stream()
-{
+void CStream::reset_stream() {
 	this->M[0] = 0.0;
 	this->M[1] = 0.0;
 }
 
 
-void CStream::set_stream(double mass[2])
-{
+void CStream::set_stream(double mass[2]) {
 	this->M[0] = mass[0];
 	this->M[1] = mass[1];
 }

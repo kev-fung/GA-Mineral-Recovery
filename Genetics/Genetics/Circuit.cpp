@@ -12,20 +12,18 @@ Circuit::Circuit(double vprice, double wastec, double conc_feed, double tails_fe
 	this->circuit_feed[1] = tails_feed;
 }
 
-Circuit::~Circuit()
-{
+Circuit::~Circuit() {
 	delete[] unit_list;
 }
 
-Circuit::Circuit() : valuable_price(100.), waste_cost(-500.), iter(0), rtol(1e9)
+Circuit::Circuit() : valuable_price(100.), waste_cost(-500.), iter(0), rtol(1e9) 
 {
 	this->circuit_feed[0] = 10;
 	this->circuit_feed[1] = 100;
 }
 
 
-double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double tolerance, int max_iterations)
-{
+double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double tolerance, int max_iterations) {
 	int max_iter = max_iterations;						// Max iterations
 	num_units = (circuit_vector.size() - 1) / 2;		// Number of units
 	unit_list = new CUnit[num_units + 2];
@@ -33,8 +31,7 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 	int feed_id = circuit_vector[0];					// Save id of feed unit
 
 	// Fill up our unit_list (vector of unit objects) from circuit_vector:
-	for (int i = 0; i < num_units; i++)
-	{
+	for (int i = 0; i < num_units; i++) {
 		CUnit unit(i, circuit_vector[(2 * i) + 1], circuit_vector[(2 * i) + 2]);
 		unit_list[i] = unit;
 
@@ -50,8 +47,7 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 	while (rtol > tolerance && iter < max_iter)			// while relative difference is more than specified tolerance
 	{
 		// Calculate Tail and Conc streams of all units for this time step!
-		for (int i = 0; i < num_units; i++)
-		{
+		for (int i = 0; i < num_units; i++) {
 			unit_list[i].output_con_tail();
 		}
 
@@ -64,8 +60,7 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 		unit_list[feed_id].feed.set_stream(circuit_feed);		// [10, 100]
 
 		// Send the Tail and Conc streams to their destination units!
-		for (int i = 0; i < num_units; i++)
-		{
+		for (int i = 0; i < num_units; i++) {
 			conc_ID = unit_list[i].conc_id;
 			tail_ID = unit_list[i].tail_id;
 
@@ -74,11 +69,9 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 
 		// Work out the relative tolerances!
 		max_rel_tol = -1e9;
-		for (int i = 0; i < num_units; i++)
-		{
+		for (int i = 0; i < num_units; i++) {
 			rel_tol = unit_list[i].rel_tol_calc();
-			if (rel_tol > max_rel_tol)
-			{
+			if (rel_tol > max_rel_tol) {
 				max_rel_tol = rel_tol;
 			}
 		}
