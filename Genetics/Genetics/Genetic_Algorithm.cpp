@@ -3,7 +3,7 @@
 
 
 void generateCircuit(vector<int> &vals) {
-	// Set the feed.
+	// Set the feed
 	vals[0] = rand() % num_units;
 	for (int i = 1; i < sizeVec; i++){
 		vals[i] = rand() % (num_units + 2);
@@ -68,7 +68,7 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 		children[0] = circuits[indmax];
 
 
-		// Find the range of fitness.
+		// Find the range of fitness
 		vector<double> intervals(numCircuits + 1);
 		intervals[0] = 0;
 		double range = 0;
@@ -182,7 +182,7 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 		cout << endl;*/
 
 		it++;
-		cout << "Number of iterations: " << it << endl;
+		//cout << "Number of iterations: " << it << endl;
 	}  // end of the while loop on the iterations
 
 	return best_child;
