@@ -1,8 +1,7 @@
 #pragma once
 
 
-class CStream
-{
+class CStream {
 public:
 	// Constructors
 	CStream();										// Default sets masses to 0

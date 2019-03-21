@@ -3,9 +3,7 @@
 #include "CStream.h"
 #include <vector>
 
-class Circuit
-{
-
+class Circuit {
 public:
 	// Constructors
 	Circuit(double vprice, double wastec, double conc_feed, double tails_feed);

@@ -2,8 +2,6 @@
 #include "CUnit.h"
 #include "Header.h"
 
-using namespace std;
-
 
 CUnit::CUnit()
 {}
