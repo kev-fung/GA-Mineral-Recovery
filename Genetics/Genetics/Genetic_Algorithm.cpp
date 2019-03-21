@@ -53,7 +53,7 @@ vector<int> Genetic_Algorithm::geneticAlgo(int minIte, int maxIte, int bestIndCn
 	// To store the best child, output
 	vector<int> best_child(sizeCirc, 0);
 
-	int it = 0;		// number of iterations done
+	it = 0;		// number of iterations done
 	int cnt;		// counter to keep track of the children
 
 	double min;		// min value of fitness
@@ -309,22 +309,10 @@ vector<int> Genetic_Algorithm::runAlgo(int bestIndCnt, int minIte, int maxIte)
 	return best_circuit;
 }
 
-//void Genetic_Algorithm::output_file(string name, )
-//{
-//
-//	stringstream fname;
-//	fstream f1;
-//
-//	fname << name << ".csv";
-//
-//	f1.open(fname.str().c_str(), ios_base::out);
-//
-//	for (int i = 1; i < id_ysize + 1; i++)
-//	{
-//		for (int j = 1; j < id_xsize + 1; j++)
-//			f1 << grid[i][j] << ",";
-//		f1 << endl;
-//	}
-//	
-//	f1.close();
-//}
+
+
+
+// num circuits
+// prob_CO
+// prob_mut
+

@@ -2,6 +2,7 @@
 #include "CUnit.h"
 #include <cmath>
 
+using namespace std;
 
 CUnit::CUnit()
 {}
@@ -43,5 +44,6 @@ double CUnit::rel_tol_calc() {
 
 	return (rel_tol[0] > rel_tol[1] ? rel_tol[0] : rel_tol[1]);
 }
+
 
 class CUnit;
