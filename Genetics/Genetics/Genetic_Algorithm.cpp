@@ -309,9 +309,9 @@ vector<int> Genetic_Algorithm::runAlgo(int bestIndCnt, int minIte, int maxIte)
 	return best_circuit;
 }
 
+
 //void Genetic_Algorithm::output_file(string name, )
 //{
-//
 //	stringstream fname;
 //	fstream f1;
 //
@@ -328,3 +328,9 @@ vector<int> Genetic_Algorithm::runAlgo(int bestIndCnt, int minIte, int maxIte)
 //	
 //	f1.close();
 //}
+
+
+// num circuits
+// prob_CO
+// prob_mut
+
