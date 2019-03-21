@@ -20,8 +20,7 @@ void mark_units(int unit_num) {
 	}
 	else {
 		if (units[unit_num].conc_id == num_units) seen_conc = true;
-		if (units[unit_num].conc_id == num_units+1) seen_tail = true;
-		//else seen_tail = true;
+		else seen_tail = true;
 	}
 
 	// If tails_num does not point at a circuit outlet recursively call the function
@@ -29,10 +28,8 @@ void mark_units(int unit_num) {
 		mark_units(units[unit_num].tail_id);
 
 	else {
-		//if (units[unit_num].conc_id == num_units + 1) seen_tail = true;
-		if (units[unit_num].conc_id == num_units) seen_conc = true;
-		if (units[unit_num].conc_id == num_units + 1) seen_tail = true;
-		//else seen_conc = true;
+		if (units[unit_num].tail_id == num_units+1) seen_tail = true;
+		else seen_conc = true;
 	}
 }
 
@@ -66,12 +63,12 @@ bool Check_Validity(vector<int> circuit_vector) {
 	for (int i = 0; i < num_units; i++) {
 		units[i].mark = false;
 	}
-		
+
 	mark_units(feed_num);
 
 	for (int i = 0; i < num_units; i++) {
-		if (!units[i].mark) { 
-			return false; 
+		if (!units[i].mark) {
+			return false;
 		}
 	}
 
@@ -79,7 +76,7 @@ bool Check_Validity(vector<int> circuit_vector) {
 	for (int j = 0; j < num_units; j++) {
 		for (int i = 0; i < num_units; i++) {
 			units[i].mark = false;
-		}	
+		}
 		seen_conc = false;
 		seen_tail = false;
 

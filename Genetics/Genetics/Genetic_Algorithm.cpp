@@ -3,9 +3,9 @@
 
 
 void generateCircuit(vector<int> &vals) {
-	// Set the feed
+	// Set the feed.
 	vals[0] = rand() % num_units;
-	for (int i = 1; i < sizeVec; i++){
+	for (int i = 1; i < sizeVec; i++) {
 		vals[i] = rand() % (num_units + 2);
 	}
 }
@@ -13,10 +13,10 @@ void generateCircuit(vector<int> &vals) {
 
 vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, int minIte, int maxIte, int bestIndCnt, double proCrosOver, double proMut) {
 	// Size of the vector of int and number of circuits
-	int sizeCirc = circuits[0].size();   
-	int numCircuits = circuits.size();   
+	int sizeCirc = circuits[0].size();
+	int numCircuits = circuits.size();
 
-    // Initialise vector that will contain the next generation circuits
+	// Initialise vector that will contain the next generation circuits
 	vector<vector<int>> children(numCircuits, vector<int>(sizeCirc, 0));
 
 	// Vectors the do the cross-over and/or mutation
@@ -34,9 +34,9 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 
 	int indmax; // index of the best vector
 	int cnt_indmax = 0; // keeping track if the best vector is still the first vector of the list
-	
-	
-	while(it<maxIte) {
+
+
+	while (it < maxIte) {
 		// Keep track of the children
 		cnt = 0;
 
@@ -53,14 +53,14 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 				max = fitVec[i];
 				indmax = i;
 			}
-			if (fitVec[i]<min) min=fitVec[i];
+			if (fitVec[i] < min) min = fitVec[i];
 		}
 		cnt++;
 
 		// Check if indmax has not changed (i.e. the first vector is the best and still the same)
-		if (it>minIte && indmax == 0) {
+		if (it > minIte && indmax == 0) {
 			cnt_indmax++;
-			if (cnt_indmax>bestIndCnt) break;
+			if (cnt_indmax > bestIndCnt) break;
 		}
 		else {
 			cnt_indmax = 0;
@@ -68,7 +68,7 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 		children[0] = circuits[indmax];
 
 
-		// Find the range of fitness
+		// Find the range of fitness.
 		vector<double> intervals(numCircuits + 1);
 		intervals[0] = 0;
 		double range = 0;
@@ -84,23 +84,37 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 			// Find the indexes of the parents
 			double num0, num1;
 			int ind0 = 0, ind1 = 0;
-			while (ind0 == ind1) {
+
+			num0 = ((double)rand() / (RAND_MAX));
+			num0 *= range;
+
+			for (int i = 0; i < numCircuits; i++)
+				if (num0 < intervals[i + 1])
+				{
+					ind0 = i;
+					break;
+				}
+
+
+			do
+			{
 				// Pick a random number
-				num0 = ((double)rand() / (RAND_MAX));
-				num0 *= range;
+
 				num1 = ((double)rand() / (RAND_MAX));
 				num1 *= range;
 
-				for (int i = 1; i < numCircuits + 1; i++) {
-					if (num0 > intervals[i - 1] && num0 <= intervals[i]) ind0 = i - 1;
-					if (num1 > intervals[i - 1] && num1 <= intervals[i]) ind1 = i - 1;
-				}
-			}
+				for (int i = 0; i < numCircuits; i++)
+					if (num1 < intervals[i + 1])
+					{
+						ind1 = i;
+						break;
+					}
+			} while (ind0 == ind1);
 
 
 			// Do the cross-over
 			num0 = ((double)rand() / (RAND_MAX)); // Cross-over probability
-			if (num0>=0 && num0<proCrosOver) { // TO TUNE
+			if (num0 < proCrosOver) { // TO TUNE
 				// Select a random point in the vector
 				int pivot = rand() % (sizeCirc - 1) + 1;
 
@@ -123,25 +137,34 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 
 			// Do the mutation
 			int randInt;
-			int stepSize = 3;
 			num0 = ((double)rand() / (RAND_MAX)); // mutation probability
 
 			// Mutate the feed
-			if (num0 >= 0 && num0 < proMut ) { // TO TUNE
-				randInt = rand() % stepSize + 1;
-				circuit0[0] = (circuit0[0] + randInt) % num_units;
-				randInt = rand() % stepSize + 1;
-				circuit1[0] = (circuit1[0] + randInt) % num_units;
+			if (num0 < proMut)
+			{ // TO TUNE
+				circuit0[0] = rand() % num_units;
+			}
+
+			num0 = ((double)rand() / (RAND_MAX)); // mutation probability
+			if (num0 < proMut)
+			{
+				circuit1[0] = rand() % num_units;
 			}
 			// Mutate the rest of the circuit
-			for (int i = 1; i < sizeCirc; i++) {
+			for (int i = 1; i < sizeCirc; i++)
+			{
 				num0 = ((double)rand() / (RAND_MAX)); // mutation probability
-				
-				if (num0 >= 0 && num0 < proMut) { // TO TUNE
-					randInt = rand() % stepSize + 1;
-					circuit0[i] = (circuit0[i] + randInt) % (num_units + 2);
-					randInt = rand() % stepSize + 1;
-					circuit1[i] = (circuit1[i] + randInt) % (num_units + 2);
+
+				if (num0 < proMut)
+				{ // TO TUNE
+					circuit0[i] = rand() % (num_units + 2);
+				}
+
+				num0 = ((double)rand() / (RAND_MAX)); // mutation probability
+
+				if (num0 < proMut)
+				{ // TO TUNE
+					circuit1[i] = rand() % (num_units + 2);
 				}
 			}
 
@@ -182,7 +205,7 @@ vector<int> geneticAlgo(vector<vector<int>> &circuits, vector<double> &fitVec, i
 		cout << endl;*/
 
 		it++;
-		//cout << "Number of iterations: " << it << endl;
+		cout << "Number of iterations: " << it << " best " << fitVec[indmax] << endl;
 	}  // end of the while loop on the iterations
 
 	return best_child;
