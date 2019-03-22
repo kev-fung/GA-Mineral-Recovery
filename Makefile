@@ -31,7 +31,7 @@ clean:
 TESTS = test_GA test_Validity test_circuit  
 
 runtests: ${TESTS}
-	@python run_tests.py
+	@python3 run_tests.py
 
 tests: ${TESTS}
 
