@@ -104,18 +104,18 @@ int main()
 	//string file_name = "";
 	//analysis(file_name, num_units, num_circuits, prob_CO, prob_Mut, tol, max_iter, bestIndCnt, minIte, maxIte, time_GA, avg_q, quant, circuit_model);
 
-	//Genetic_Algorithm GA(num_units, num_circuits, prob_CO, prob_Mut, tol, max_iter, circuit_model, time_GA);
-	//best_circuit = GA.runAlgo(bestIndCnt, minIte, maxIte);
+	Genetic_Algorithm GA(num_units, num_circuits, prob_CO, prob_Mut, tol, max_iter, circuit_model, time_GA);
+	best_circuit = GA.runAlgo(bestIndCnt, minIte, maxIte);
 
-	//if (time_GA)
-	//{
-	//	// Print the output.
-	//	cout << "Output best vector" << endl;
-	//	for (int j = 0; j < 2 * num_units + 1; j++)
-	//	{
-	//		cout << best_circuit[j] << " ";
-	//	}
-	//}
+	if (time_GA)
+	{
+		// Print the output.
+		cout << "Output best vector" << endl;
+		for (int j = 0; j < 2 * num_units + 1; j++)
+		{
+			cout << best_circuit[j] << " ";
+		}
+	}
 
 	Circuit circ;
 	double best_fitness;
