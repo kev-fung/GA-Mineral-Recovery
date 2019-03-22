@@ -10,7 +10,7 @@
 using namespace std;
 
 
-void analysis(string name, int num_units, int num_circuits, double prob_CO, double prob_Mut, double tol, double max_iter, int bestIndCnt, int minIte, int maxIte, bool time_GA, int avg_q, int quant)
+void analysis(string name, int num_units, int num_circuits, double prob_CO, double prob_Mut, double tol, double max_iter, int bestIndCnt, int minIte, int maxIte, bool time_GA, int avg_q, int quant, double model[6])
 {
 	vector<int> best_circuit;
 
@@ -31,6 +31,8 @@ void analysis(string name, int num_units, int num_circuits, double prob_CO, doub
 		avg_fitness = 0.;
 		avg_it = 0.;
 		avg_time = 0.;
+
+		// MUST CHANGE THIS!!!
 		prob_Mut = ((double)(x + 1) / (double)quant) / 40.;
 
 		f1 << prob_Mut;
@@ -39,7 +41,7 @@ void analysis(string name, int num_units, int num_circuits, double prob_CO, doub
 		// Run the GA avg_q times to work out the average fitness.
 		for (int i = 0; i < avg_q; i++)
 		{
-			Genetic_Algorithm GA(num_units, num_circuits, prob_CO, prob_Mut, tol, max_iter, time_GA);
+			Genetic_Algorithm GA(num_units, num_circuits, prob_CO, prob_Mut, tol, max_iter, model, time_GA);
 			best_circuit = GA.runAlgo(bestIndCnt, minIte, maxIte);
 
 			if (time_GA)
@@ -78,7 +80,7 @@ int main()
 	double prob_CO = 1.;
 	double prob_Mut = 0.004;
 
-	vector<double> circuit_model(6);
+	double circuit_model[6];
 	circuit_model[0] = 100.;	// cprice
 	circuit_model[1] = -500.;	// tcost
 	circuit_model[2] = 10.;		// cfeed
@@ -99,11 +101,28 @@ int main()
 	int avg_q = 5;
 	int quant = 10;
 
-	string file_name = "";
+	//string file_name = "";
+	//analysis(file_name, num_units, num_circuits, prob_CO, prob_Mut, tol, max_iter, bestIndCnt, minIte, maxIte, time_GA, avg_q, quant, circuit_model);
 
-	analysis(file_name, num_units, num_circuits, prob_CO, prob_Mut, tol, max_iter, bestIndCnt, minIte, maxIte, time_GA, avg_q, quant);
+	//Genetic_Algorithm GA(num_units, num_circuits, prob_CO, prob_Mut, tol, max_iter, circuit_model, time_GA);
+	//best_circuit = GA.runAlgo(bestIndCnt, minIte, maxIte);
 
-	
+	//if (time_GA)
+	//{
+	//	// Print the output.
+	//	cout << "Output best vector" << endl;
+	//	for (int j = 0; j < 2 * num_units + 1; j++)
+	//	{
+	//		cout << best_circuit[j] << " ";
+	//	}
+	//}
+
+	Circuit circ;
+	double best_fitness;
+	best_fitness = circ.Evaluate_Circuit(best_circuit, tol, max_iter);
+	cout << "Fitness: " << best_fitness;
+	cout << endl;
+
 	system("pause");
 	return 0;
 }

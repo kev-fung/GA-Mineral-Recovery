@@ -14,12 +14,19 @@
 using namespace std;
 
 
-Genetic_Algorithm::Genetic_Algorithm(int nunits, int nCircuits, double pCrossOver, double pMut, double toler, int max_iter, bool tGA) : num_units(nunits), numCircuits(nCircuits), proCrossOver(pCrossOver), proMut(pMut), tol(toler), max_iterations(max_iter), timeGA(tGA)
+Genetic_Algorithm::Genetic_Algorithm(int nunits, int nCircuits, double pCrossOver, double pMut, double toler, int max_iter, double model[6], bool tGA) : num_units(nunits), numCircuits(nCircuits), proCrossOver(pCrossOver), proMut(pMut), tol(toler), max_iterations(max_iter), timeGA(tGA)
 {
 	sizeVec = 2 * nunits + 1;		// Initialise size of the GA circuit vector
 	circuit.resize(sizeVec, 0);		
 	circuits.resize(numCircuits, vector<int>(sizeVec, 0));
 	fitVec.resize(numCircuits, 0);
+
+	cprice = model[0];
+	tcost = model[1];
+	cfeed = model[2];
+	tfeed = model[3];
+	cfrac = model[4];
+	tfrac = model[5];
 }
 
 

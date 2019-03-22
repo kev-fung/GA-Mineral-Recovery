@@ -5,14 +5,13 @@
 class Genetic_Algorithm {
 public:
 	// Constructors:
-	Genetic_Algorithm(int num_units, int numCircuits, double pCrossOver, double pMut, double tol, int max_iterations, std::vector<double> model, bool timeGA);
+	Genetic_Algorithm(int num_units, int numCircuits, double pCrossOver, double pMut, double tol, int max_iterations, double model[6], bool timeGA);
 	~Genetic_Algorithm();
 
 	// Methods:
 	void generateCircuit(std::vector<int> &vals);
 	std::vector<int> geneticAlgo(int minIte, int maxIte, int bestIndCnt, Validity &val);
 	std::vector<int> runAlgo(int bestIndCnt, int minIte, int maxIte);
-	void output_file();
 	double wTime();
 
 	// Public Variables:
@@ -44,7 +43,6 @@ private:
 	std::vector<int> circuit;
 	std::vector<double> fitVec;			// List of fitness values
 
-	
 	// Timing
 	bool timeGA;
 };
