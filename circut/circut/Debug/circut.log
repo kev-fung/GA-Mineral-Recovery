@@ -1,0 +1,9 @@
+﻿  Example.cpp
+c1xx : warning C4199: two-phase name lookup is not supported for C++/CLI, C++/CX, or OpenMP; use /Zc:twoPhase-
+c:\users\deirdree\documents\acse_stuff\acse-4-project-3-gold\circut\circut\example.cpp(15): warning C4018: '<': signed/unsigned mismatch
+  circuit.cpp
+c1xx : warning C4199: two-phase name lookup is not supported for C++/CLI, C++/CX, or OpenMP; use /Zc:twoPhase-
+c:\users\deirdree\documents\acse_stuff\acse-4-project-3-gold\circut\circut\circuit.cpp(29): warning C4101: 'tid': unreferenced local variable
+c:\users\deirdree\documents\acse_stuff\acse-4-project-3-gold\circut\circut\circuit.cpp(29): warning C4101: 'nthreads': unreferenced local variable
+  Generating Code...
+  circut.vcxproj -> C:\Users\Deirdree\Documents\ACSE_Stuff\acse-4-project-3-gold\circut\Debug\circut.exe
