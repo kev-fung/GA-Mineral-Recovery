@@ -42,7 +42,7 @@ private:
 class Circuit {
 public:
 	// Constructors
-	Circuit(double vprice, double wastec, double conc_feed, double tails_feed);
+	Circuit(double vprice, double wastec, double conc_feed, double tails_feed, double cfrac, double tfrac);
 	~Circuit();
 	Circuit();
 
@@ -61,6 +61,8 @@ private:
 	double tot_valuable;					// Total valuables in final concentration stream 
 	double tot_waste;						// Total wastes in final concentration stream
 	double fitness;							// Performance metric of the circuit
+	double cfrac;							// Fraction of concentrate in contrate stream
+	double tfrac;							// Fraction of tailings in concentrate stream
 
 	CUnit* unit_list;						// Dynamic array of units
 	int num_units;							// Number of units in circuit

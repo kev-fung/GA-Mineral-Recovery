@@ -78,6 +78,12 @@ CUnit::CUnit(int id, int conc_num, int tail_num) :id(id), conc_id(conc_num), tai
 }
 
 
+CUnit::CUnit(int id, int conc_num, int tail_num, double cfrac, double tfrac) :id(id), conc_id(conc_num), tail_id(tail_num) {
+	this->conc_frac[0] = cfrac;
+	this->conc_frac[1] = tfrac;
+}
+
+
 CUnit::~CUnit()
 {}
 
