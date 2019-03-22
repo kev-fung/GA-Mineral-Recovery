@@ -1,0 +1,28 @@
+RUN 1.
+Output best vector
+9 10 8 8 3 4 7 5 11 0 8 0 9 4 2 8 1 0 5 4 6 Fitness: 140.128
+
+Time of execution = 68.23s.
+
+
+
+RUN 2.
+Output best vector
+7 9 11 2 3 4 9 9 0 10 2 2 8 4 7 2 5 2 1 4 6 Fitness: 165.06
+
+Time of execution = 76.055s.
+
+
+
+RUN 3.
+Output best vector
+1 7 8 7 0 10 7 2 1 3 11 7 9 7 4 2 3 7 5 7 6 Fitness: 161.064
+
+Time of execution = 74.752s.
+
+
+
+Output best vector
+1 9 6 0 4 1 3 4 5 0 8 11 2 9 1 6 2 0 7 10 0 Fitness: 168.693
+
+Time of execution = 141.61s.
