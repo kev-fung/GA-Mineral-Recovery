@@ -14,12 +14,19 @@
 using namespace std;
 
 
-Genetic_Algorithm::Genetic_Algorithm(int nunits, int nCircuits, double pCrossOver, double pMut, double toler, int max_iter, bool tGA) : num_units(nunits), numCircuits(nCircuits), proCrossOver(pCrossOver), proMut(pMut), tol(toler), max_iterations(max_iter), timeGA(tGA)
+Genetic_Algorithm::Genetic_Algorithm(int nunits, int nCircuits, double pCrossOver, double pMut, double toler, int max_iter, double model[6], bool tGA) : num_units(nunits), numCircuits(nCircuits), proCrossOver(pCrossOver), proMut(pMut), tol(toler), max_iterations(max_iter), timeGA(tGA)
 {
 	sizeVec = 2 * nunits + 1;		// Initialise size of the GA circuit vector
 	circuit.resize(sizeVec, 0);		
 	circuits.resize(numCircuits, vector<int>(sizeVec, 0));
 	fitVec.resize(numCircuits, 0);
+
+	cprice = model[0];
+	tcost = model[1];
+	cfeed = model[2];
+	tfeed = model[3];
+	cfrac = model[4];
+	tfrac = model[5];
 }
 
 
@@ -203,7 +210,7 @@ vector<int> Genetic_Algorithm::geneticAlgo(int minIte, int maxIte, int bestIndCn
 
 
 			// Compute the new fitness
-			Circuit circ(100.0, -500.0, 10, 100); // rebuilding the object
+			Circuit circ(cprice, tcost, cfeed, tfeed, cfrac, tfrac); // rebuilding the object
 			fitVec[i] = circ.Evaluate_Circuit(children[i], tol, max_iterations);
 		}
 
@@ -255,7 +262,7 @@ vector<int> Genetic_Algorithm::runAlgo(int bestIndCnt, int minIte, int maxIte)
 		{
 			generateCircuit(circuit);
 		}
-		Circuit circ;							// Initialise default circuit i.e. use default circuit param
+		Circuit circ(cprice, tcost, cfeed, tfeed, cfrac, tfrac);			// Initialise default circuit i.e. use default circuit param
 		circuits[i] = circuit;
 		fitVec[i] = circ.Evaluate_Circuit(circuit, tol, max_iterations);
 
@@ -291,7 +298,7 @@ vector<int> Genetic_Algorithm::runAlgo(int bestIndCnt, int minIte, int maxIte)
 			cout << best_circuit[j] << " ";
 		}
 
-		Circuit circ;
+		Circuit circ(cprice, tcost, cfeed, tfeed, cfrac, tfrac);
 		double best_fitness;
 		best_fitness = circ.Evaluate_Circuit(best_circuit, tol, max_iterations);
 		cout << "Fitness: " << best_fitness;
@@ -308,11 +315,4 @@ vector<int> Genetic_Algorithm::runAlgo(int bestIndCnt, int minIte, int maxIte)
 
 	return best_circuit;
 }
-
-
-
-
-// num circuits
-// prob_CO
-// prob_mut
 
