@@ -6,17 +6,19 @@
 using namespace std;
 
 
-Circuit::Circuit(double vprice, double wastec, double conc_feed, double tails_feed) : valuable_price(vprice), waste_cost(wastec), iter(0), rtol(1e9)
+Circuit::Circuit(double vprice, double wastec, double conc_feed, double tails_feed, double cf, double tf) : valuable_price(vprice), waste_cost(wastec), cfrac(cf), tfrac(tf), iter(0), rtol(1e9)
 {
 	this->circuit_feed[0] = conc_feed;
 	this->circuit_feed[1] = tails_feed;
 }
 
+
 Circuit::~Circuit() {
 	delete[] unit_list;
 }
 
-Circuit::Circuit() : valuable_price(100.), waste_cost(-500.), iter(0), rtol(1e9) 
+
+Circuit::Circuit() : valuable_price(100.), waste_cost(-500.), cfrac(0.20), tfrac(0.05), iter(0), rtol(1e9) 
 {
 	this->circuit_feed[0] = 10;
 	this->circuit_feed[1] = 100;
@@ -32,7 +34,7 @@ double Circuit::Evaluate_Circuit(std::vector<int> circuit_vector, double toleran
 
 	// Fill up our unit_list (vector of unit objects) from circuit_vector:
 	for (int i = 0; i < num_units; i++) {
-		CUnit unit(i, circuit_vector[(2 * i) + 1], circuit_vector[(2 * i) + 2]);
+		CUnit unit(i, circuit_vector[(2 * i) + 1], circuit_vector[(2 * i) + 2], cfrac, tfrac);
 		unit_list[i] = unit;
 
 		unit_list[i].feed = CStream(circuit_feed);		// Initialise all unit feeds with circuit feed

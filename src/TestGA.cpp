@@ -78,6 +78,14 @@ int main()
 	double prob_CO = 1.;
 	double prob_Mut = 0.004;
 
+	vector<double> circuit_model(6);
+	circuit_model[0] = 100.;	// cprice
+	circuit_model[1] = -500.;	// tcost
+	circuit_model[2] = 10.;		// cfeed
+	circuit_model[3] = 100.;	// tfeed
+	circuit_model[4] = 0.20;	// cfrac
+	circuit_model[5] = 0.05;	// tfrac
+
 	double tol = 1e-6;
 	double max_iter = 2e3;
 
@@ -91,7 +99,7 @@ int main()
 	int avg_q = 5;
 	int quant = 10;
 
-	string file_name = "Hello";
+	string file_name = "";
 
 	analysis(file_name, num_units, num_circuits, prob_CO, prob_Mut, tol, max_iter, bestIndCnt, minIte, maxIte, time_GA, avg_q, quant);
 

@@ -5,7 +5,7 @@
 class Genetic_Algorithm {
 public:
 	// Constructors:
-	Genetic_Algorithm(int num_units, int numCircuits, double pCrossOver, double pMut, double tol, int max_iterations, bool timeGA);
+	Genetic_Algorithm(int num_units, int numCircuits, double pCrossOver, double pMut, double tol, int max_iterations, std::vector<double> model, bool timeGA);
 	~Genetic_Algorithm();
 
 	// Methods:
@@ -21,12 +21,17 @@ public:
 	double tdif = 0;
 
 private:
-
 	// Number of units and size of the vector
 	int num_units;						// Number of units in a circuit
 	int sizeVec;						// Initialise size of the GA circuit vector
 
 	// Parameters for Evaluate_Circuit
+	double cprice;
+	double tcost;
+	double cfeed;
+	double tfeed;
+	double cfrac;
+	double tfrac;
 	double tol;							// 1e-6
 	int max_iterations;					// 2000
 
