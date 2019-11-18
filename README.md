@@ -1,4 +1,6 @@
 # Optimal Mineral Recovery with Genetic Algorithms
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub contributors](https://img.shields.io/github/contributors/kev-fung/GA-Mineral-Recovery)](https://github.com/kev-fung/GA-Mineral-Recovery/graphs/contributors)
 
 Mineral processing operations often use a series of separation units (known as circuits) to recover the target material into a concentrate stream and simultaneously filter out waste material to a tailings stream. Individual separation units have their own inefficiencies - hence such circuits are used to eliminate this problem. 
 
@@ -10,8 +12,7 @@ An economical optimisation problem arises out from the least amount of units req
 
 Therefore, we (Team Gold) developed a C++ implementation of genetic algorithms parallelised with MPI and OpenMP to fast determine optimal circuit arrangements.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub contributors](https://img.shields.io/github/contributors/kev-fung/GA-Mineral-Recovery)](https://github.com/kev-fung/GA-Mineral-Recovery/graphs/contributors)
+
 
 ## Software implementation
 Three versions included. 
@@ -22,7 +23,7 @@ Three versions included.
 ## How to run
 1. Make a new Visual Studio project, and link the /src folder and /Includes folder to the project.
 2. Build and run project through IDE.
-3. For MPI versions, one must move into the MPI folders and compile with:	mpic++ -std=c++11 *.h  *.cpp -o run
+3. For MPI versions, one must move into the MPI folders and compile with:	`mpic++ -std=c++11 *.h  *.cpp -o run`
 
 ## Applications and Tools
 * Animation and plotting graphs for the development of circuits
