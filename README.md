@@ -5,7 +5,7 @@ Mineral processing operations often use a series of separation units (known as c
 An economical optimisation problem arises out from the least amount of units required to separate the input material the quickest. 
 
 <p align="center">
-  <img src="./misc/front_img.PNG" alt="front_img" width="295">
+  <img src="./misc/front_img.png" alt="front_img" width="295">
 </p>
 
 Therefore, we (Team Gold) developed a C++ implementation of genetic algorithms parallelised with MPI and OpenMP to fast determine optimal circuit arrangements.
