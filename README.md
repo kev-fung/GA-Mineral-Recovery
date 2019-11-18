@@ -14,7 +14,7 @@ Therefore, we (Team Gold) developed a C++ implementation of genetic algorithms p
 [![GitHub contributors](https://img.shields.io/github/contributors/kev-fung/GA-Mineral-Recovery)](https://github.com/kev-fung/GA-Mineral-Recovery/graphs/contributors)
 
 ## Software implementation
-Three versions of the software are implemented. 
+Three versions included. 
 * Non-parallel is in /GA-Mineral-Recovery.
 * MPI parallelised is in /Parallel-Versions.
 * OpenMP parallelised in in /Parallel-Versions.
