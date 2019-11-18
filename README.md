@@ -1,9 +1,11 @@
 # Optimal Mineral Recovery with Genetic Algorithms
 
-Mineral processing operations often use a series of separation units (known as circuits) to recover the target material into a concentrate stream and simultaneously filter out waste material to a tailings stream. Individual separation units have their own inefficiencies - hence such circuits are used to eliminate this problem. An economical optimisation problem arises out from the least amount of units required to separate the input material the quickest. 
+Mineral processing operations often use a series of separation units (known as circuits) to recover the target material into a concentrate stream and simultaneously filter out waste material to a tailings stream. Individual separation units have their own inefficiencies - hence such circuits are used to eliminate this problem. 
+
+An economical optimisation problem arises out from the least amount of units required to separate the input material the quickest. 
 
 <p align="center">
-  <img src="./front_img.PNG" alt="front_img" width="295">
+  <img src="./misc/front_img.png" alt="front_img" width="295">
 </p>
 
 Therefore, we (Team Gold) developed a C++ implementation of genetic algorithms parallelised with MPI and OpenMP to fast determine optimal circuit arrangements.
@@ -11,20 +13,21 @@ Therefore, we (Team Gold) developed a C++ implementation of genetic algorithms p
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub contributors](https://img.shields.io/github/contributors/kev-fung/GA-Mineral-Recovery)](https://github.com/kev-fung/GA-Mineral-Recovery/graphs/contributors)
 
-1. GA Program
-	1. Make a new Visual studio project, and link the src folder and Includes folder to the project.
-	2. The src folder contains the .cpp files.
-	3. The Includes folder contains the .h files.
+## Software implementation
+Three versions of the software are implemented. 
+* Non-parallel is in /GA-Mineral-Recovery.
+* MPI parallelised is in /Parallel-Versions.
+* OpenMP parallelised in in /Parallel-Versions.
 
-2. Parallelised GA Program
-	1. Move into the MPI folders and compile with:   mpic++ -std=c++11 *.h  *.cpp -o run
-	2. Run the executable generated.
-	3. OMP parallel folder contains the omp code
+## How to run
+1. Make a new Visual Studio project, and link the /src folder and /Includes folder to the project.
+2. Build and run project through IDE.
+3. For MPI versions, one must move into the MPI folders and compile with:	mpic++ -std=c++11 *.h  *.cpp -o run
 
-3. Extension
-	1. extra_AdditionalComponents contains the code that allows for additional flow components. Runs as n
+## Applications and Tools
+* Animation and plotting graphs for the development of circuits
+* Code tests
+* extra_AdditionalComponents contains code that allows for additional flow components. Runs as n.
 
-4. Applications and Tools
-	1. Animation and plotting graphs
-	2. Testings
 
+Analytics and report included.
