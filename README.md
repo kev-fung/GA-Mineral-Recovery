@@ -33,5 +33,5 @@ Three versions of the software are implemented.
 The full analytical report is described in the [ipython notebook](https://github.com/kev-fung/GA-Mineral-Recovery/blob/master/Analytical%20Report/Gold-Report.ipynb) with successful results.
 
 <p align="center">
-  <img src="./misc/output.png" alt="result" width="700">
+  <img src="./misc/output.jpg" alt="result" width="700">
 </p>
