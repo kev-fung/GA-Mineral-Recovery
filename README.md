@@ -29,5 +29,9 @@ Three versions of the software are implemented.
 * Code tests
 * extra_AdditionalComponents contains code that allows for additional flow components. Runs as n.
 
+## Results
+The full analytical report is described in the [ipython notebook](https://github.com/kev-fung/GA-Mineral-Recovery/blob/master/Analytical%20Report/Gold-Report.ipynb) with successful results.
 
-Analytics and report included.
+<p align="center">
+  <img src="./misc/output.png" alt="result" width="700">
+</p>
