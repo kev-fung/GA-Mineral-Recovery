@@ -1,6 +1,6 @@
 # Optimal Mineral Recovery with Genetic Algorithms
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub contributors](https://img.shields.io/github/contributors/kev-fung/GA-Mineral-Recovery)](https://github.com/kev-fung/GA-Mineral-Recovery/graphs/contributors)
+[![GitHub contributors](https://img.shields.io/github/contributors/kev-fung/Mineral-Recovery)](https://github.com/kev-fung/Mineral-Recovery/graphs/contributors)
 
 Mineral processing operations often use a series of separation units (known as circuits) to recover the target material into a concentrate stream and simultaneously filter out waste material to a tailings stream. Individual separation units have their own inefficiencies - hence such circuits are used to eliminate this problem. 
 
@@ -31,7 +31,7 @@ Three versions included.
 * extra_AdditionalComponents contains code that allows for additional flow components. Runs as n.
 
 ## Results
-The full analytical report is described in the [ipython notebook](https://github.com/kev-fung/GA-Mineral-Recovery/blob/master/Analytical%20Report/Gold-Report.ipynb) with successful results.
+The full analytical report is described in the [ipython notebook](https://github.com/kev-fung/Mineral-Recovery/blob/master/Analytical%20Report/Gold-Report.ipynb) with successful results.
 
 <p align="center">
   <img src="./misc/output.jpg" alt="result" width="700">
